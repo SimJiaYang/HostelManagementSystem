@@ -1,8 +1,8 @@
 package com.example.hostelmanagementsystem;
 
 public class Student extends Person{
-    String studentID;
-    String studentEmail;
+    private String studentID;
+    private String studentEmail;
     protected Student(){
         this("unknown","unknown","unknown","unknown",
                 "unknown","unknown","unknown");

@@ -5,4 +5,5 @@ public class Room{
     protected Room(int size){
         this.size = size;
     }
+
 }

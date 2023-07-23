@@ -3,9 +3,9 @@ package com.example.hostelmanagementsystem;
 import java.util.ArrayList;
 
 public abstract class Hostel{
-    ArrayList<Person> occupants;
-    ArrayList<Room> singleRoom;
-    ArrayList<Room> tripleRoom;
+    private ArrayList<Person> occupants;
+    private ArrayList<Room> singleRoom;
+    private ArrayList<Room> tripleRoom;
     int capacity;
     protected Hostel(){
         this(0,new ArrayList<Person>(),new ArrayList<Room>(),new ArrayList<Room>() );

@@ -5,24 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Price.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/blank" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/HostelManagementSystem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +30,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2SkqqVe0hnui93YvC94owLGQyXj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">

@@ -3,8 +3,8 @@ package com.example.hostelmanagementsystem;
 import java.util.ArrayList;
 
 public class OldHostel extends Hostel{
-    private static final int TOTAL_SINGLE_ROOMS = 10;
-    private static final int TOTAL_TRIPLE_ROOMS = 5;
+    private int TOTAL_SINGLE_ROOMS;
+    private int TOTAL_TRIPLE_ROOMS;
     protected OldHostel(){
         this(0,new ArrayList<Person>(),new ArrayList<Room>(),new ArrayList<Room>() );
     }

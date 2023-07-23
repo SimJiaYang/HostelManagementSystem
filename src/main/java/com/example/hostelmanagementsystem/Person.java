@@ -1,11 +1,11 @@
 package com.example.hostelmanagementsystem;
 
 public class Person {
-    String name;
-    String address;
-    String gender;
-    String phoneNumber;
-    String emergencyContact;
+    private String name;
+    private String address;
+    private String gender;
+    private String phoneNumber;
+    private String emergencyContact;
     protected Person(){
         this("unknown","unknown","unknown","unknown","unknown");
     }

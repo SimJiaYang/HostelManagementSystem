@@ -1,6 +1,6 @@
 package com.example.hostelmanagementsystem;
 
-public class Room{
+public abstract class Room{
     private String roomNumber;
     protected Room(String roomNumber){
         this.roomNumber = roomNumber;
@@ -9,4 +9,6 @@ public class Room{
         return roomNumber;
     }
 
+    public abstract String addPerson(Person person);
+    public abstract String removePerson(Person person);
 }

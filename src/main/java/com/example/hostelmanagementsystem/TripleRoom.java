@@ -9,7 +9,7 @@ public class TripleRoom extends Room {
         super(roomNumber);
         isLive = false;
     }
-
+    @Override
     public String addPerson(Person person){
         // If have more than or equal 3 person live , then isLive equal to true
         isLive = this.persons.size() >= 3;

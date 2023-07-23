@@ -8,7 +8,7 @@ public class SingleRoom extends Room{
         // Every room is empty
         isLive = false;
     }
-
+    @Override
     public String addPerson(Person person){
         // If have person live , then isLive equal to true
         isLive = this.person != null;
@@ -18,14 +18,18 @@ public class SingleRoom extends Room{
         }
         return isLive ? "Sorry, already full.":"Successfully register";
     }
-    public String removePerson(){
-        // If have person live , then isLive equal to true
-        isLive = this.person != null;
+    public String removePerson(Person person){
+        boolean isExist;
+        // If same person, mean it is exist
+        isExist = this.person == person;
+
         // If true, then set the person to null, because has person lived
-        if(isLive){
+        if(isExist){
             this.person = null;
         }
-        return isLive ? "Checkout successfully": "Person no exist" ;
+        // If have person live , then isLive equal to true
+        isLive = this.person != null;
+        return isExist ? "Checkout successfully": "Person no exist" ;
     }
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FDF2E9;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hostelmanagementsystem.MainController">
+    <top>
+        <TabPane prefHeight="404.0" prefWidth="600.0" style="-fx-background-color: FAE5D3;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Add">
+                    <fx:include source="add.fxml" />
+                </Tab>
+                <Tab text="Log Out">
+                    <fx:include source="logout.fxml" />
+                </Tab>
+            </tabs>
+        </TabPane>
+    </top>
+</BorderPane>

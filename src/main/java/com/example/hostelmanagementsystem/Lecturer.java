@@ -3,7 +3,7 @@ package com.example.hostelmanagementsystem;
 public class Lecturer extends Person{
     String lecturerID;
     String lecturerEmail;
-//    boolean hasDiscount;
+    boolean hasLiveHostel;
     protected Lecturer(){
         this("unknown","unknown","unknown","unknown",
                 "unknown","unknown","unknown");

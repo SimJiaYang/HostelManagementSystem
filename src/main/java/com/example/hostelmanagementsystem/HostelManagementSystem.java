@@ -1,7 +1,6 @@
 package com.example.hostelmanagementsystem;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -9,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class HostelManagementSystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         BorderPane bp= new BorderPane();
@@ -22,6 +21,9 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println(new Person());
+        System.out.println(new Lecturer());
+        System.out.println(new Student());
         launch();
     }
 }

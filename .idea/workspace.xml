@@ -4,14 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
+    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_10_16_pm_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_10_16_pm_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_10_16_pm__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/LogoutController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/add.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/logout.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/main.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/hostel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/user.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/HostelManagementSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/HostelManagementSystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +41,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -40,17 +60,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/user/Documents/OOP/Project/HostelManagementSystem",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/HostelManagementSystem/src/main/resources/images&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\IdeaProjects\HostelManagementSystem\src\main\resources\images" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="HostelManagementSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.hostelmanagementsystem.HostelManagementSystem" />

@@ -1,9 +1,12 @@
 package com.example.hostelmanagementsystem;
 
 public class Room{
-    int size;
-    protected Room(int size){
-        this.size = size;
+    private String roomNumber;
+    protected Room(String roomNumber){
+        this.roomNumber = roomNumber;
+    }
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
 }

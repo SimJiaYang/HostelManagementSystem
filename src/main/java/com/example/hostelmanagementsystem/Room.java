@@ -11,4 +11,5 @@ public abstract class Room{
 
     public abstract String addPerson(Person person);
     public abstract String removePerson(Person person);
+    public abstract String getPersonLived();
 }

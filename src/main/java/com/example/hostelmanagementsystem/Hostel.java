@@ -3,52 +3,66 @@ package com.example.hostelmanagementsystem;
 import java.util.ArrayList;
 
 public abstract class Hostel{
-    private ArrayList<Person> occupants;
     private ArrayList<Room> singleRoom;
     private ArrayList<Room> tripleRoom;
-    int capacity;
+    int capacitySingleRoom;
+    int capacityTripleRoom;
     protected Hostel(){
-        this(0,new ArrayList<Person>(),new ArrayList<Room>(),new ArrayList<Room>() );
+        this(0,0,new ArrayList<Room>(),new ArrayList<Room>() );
     }
-    protected Hostel(int capacity,ArrayList<Person> occupants,ArrayList<Room> singleRoom,ArrayList<Room> tripleRoom) {
-        this.capacity = capacity;
-        this.occupants = occupants;
+    protected Hostel(int capacitySingleRoom,int capacityTripleRoom,ArrayList<Room> singleRoom,ArrayList<Room> tripleRoom) {
+        this.capacitySingleRoom = capacitySingleRoom;
+        this.capacityTripleRoom = capacityTripleRoom;
         this.singleRoom = singleRoom;
         this.tripleRoom = tripleRoom;
     }
-    public abstract int getCapacity();
+    public int getCapacitySingleRoom(){
+        return capacitySingleRoom;
+    };
+    public int getCapacityTripleRoom(){
+        return capacityTripleRoom;
+    };
 
     public boolean addSingleRoom(Room room) {
-        return singleRoom.add(room);
+        // If single room size is smaller than total capacity, add it
+        if(singleRoom.size() <  capacitySingleRoom){
+            singleRoom.add(room);
+            return true;
+        }
+        return false;
     }
 
     public boolean addTripleRoom(Room room) {
-        return tripleRoom.add(room);
-    }
-
-    public boolean addOccupants(Person person) {
-        return occupants.add(person);
+        if(tripleRoom.size() <  capacityTripleRoom){
+            tripleRoom.add(room);
+            return true;
+        }
+        return false;
     }
 
     public boolean removeSingleRoom(Room room) {
-        return singleRoom.remove(room);
+        if(singleRoom.contains(room)){
+            singleRoom.remove(room);
+            return true;
+        }
+        return false;
     }
 
     public boolean removeTripleRoom(Room room) {
-        return tripleRoom.remove(room);
-    }
-
-    public boolean removeOccupants(Person person) {
-        return occupants.remove(person);
+        if(tripleRoom.contains(room)){
+            tripleRoom.remove(room);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
         return "Hostel{" +
-                "occupants=" + occupants.toString() +
-                ", singleRoom=" + singleRoom.toString() +
+                "singleRoom=" + singleRoom.toString() +
                 ", tripleRoom=" + tripleRoom.toString() +
-                ", capacity=" + capacity+
+                ", capacitySingleRoom=" + capacitySingleRoom +
+                ", capacityTripleRoom=" + capacityTripleRoom +
                 '}';
     }
 }

@@ -39,6 +39,8 @@ public class SingleRoom extends Room{
 
     @Override
     public String toString() {
-        return "Single Room " + getRoomNumber();
+        String room = "Single Room " + getRoomNumber();;
+        room += isLive? " lived by " + person.getName():" is empty";
+        return room;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.hostelmanagementsystem;
 
+import java.io.CharArrayReader;
 import java.util.ArrayList;
 
 public abstract class Hostel{
@@ -54,6 +55,28 @@ public abstract class Hostel{
             return true;
         }
         return false;
+    }
+
+    //get all room
+    public ArrayList<SingleRoom> getSingleRoom() {
+        ArrayList<Room> room = this.singleRoom;
+        ArrayList<SingleRoom> singleRooms = new ArrayList<SingleRoom>();
+        for(int i = 0; i < room.size(); i++) {
+            if(room.get(i) instanceof SingleRoom){
+                singleRooms.add((SingleRoom)room.get(i));
+            }
+        }
+        return singleRooms;
+    }
+    public ArrayList<TripleRoom> getTripleRoom() {
+        ArrayList<Room> room = this.tripleRoom;
+        ArrayList<TripleRoom> tripleRooms = new ArrayList<TripleRoom>();
+        for(int i = 0; i < room.size(); i++) {
+            if(room.get(i) instanceof TripleRoom){
+                tripleRooms.add((TripleRoom)room.get(i));
+            }
+        }
+        return tripleRooms;
     }
 
     @Override

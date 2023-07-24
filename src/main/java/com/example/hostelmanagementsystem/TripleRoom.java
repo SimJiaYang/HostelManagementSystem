@@ -38,7 +38,19 @@ public class TripleRoom extends Room {
 
     @Override
     public String toString() {
-        return "Triple Room " + getRoomNumber();
+        String room = "Triple Room " + getRoomNumber();
+        String person = "";
+        if(persons.size() == 0){
+            person = "is empty";
+            room += person;
+        }else{
+            room += "is lived by ";
+          for(Person p : persons) {
+              person += p.getName() + ",";
+          }
+          room += person;
+        }
+        return room;
     }
 
 }

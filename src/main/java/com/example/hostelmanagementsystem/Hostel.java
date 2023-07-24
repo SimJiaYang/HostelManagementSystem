@@ -79,13 +79,13 @@ public abstract class Hostel{
         return tripleRooms;
     }
 
+
     @Override
     public String toString() {
-        return "Hostel{" +
-                "singleRoom=" + singleRoom.toString() +
-                ", tripleRoom=" + tripleRoom.toString() +
-                ", capacitySingleRoom=" + capacitySingleRoom +
-                ", capacityTripleRoom=" + capacityTripleRoom +
-                '}';
+        return  "\nSingle Room: " + singleRoom.toString() +
+                "\nTriple Room: " + tripleRoom.toString() +
+                "\nSingle Room Capacity: " + capacitySingleRoom +
+                "\nTriple Room Capacity: " + capacityTripleRoom
+                ;
     }
 }

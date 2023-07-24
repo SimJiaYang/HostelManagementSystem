@@ -6,6 +6,8 @@ public class Person {
     private String gender;
     private String phoneNumber;
     private String emergencyContact;
+    private boolean isLiveHostel;
+    private String roomNumber;
     protected Person(){
         this("unknown","unknown","unknown","unknown","unknown");
     }
@@ -15,6 +17,28 @@ public class Person {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.emergencyContact = emergencyContact;
+        isLiveHostel = false;
+        roomNumber = null;
+    }
+    // Get person room number, if available then show, else show error message
+    public String getRoomNumber() {
+        if(roomNumber == null){
+            return "This person don't live hostel";
+        }
+        return roomNumber;
+    }
+    // When student register, set the room number
+    public void setRoomNumber(String roomNumber) {
+        isLiveHostel = true;
+        this.roomNumber = roomNumber;
+    }
+    // Since the student checkout, remove room number
+    public void removeRoomNumber() {
+        isLiveHostel = false;
+        this.roomNumber = null;
+    }
+    public boolean isLiveHostel() {
+        return isLiveHostel;
     }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

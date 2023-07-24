@@ -3,11 +3,14 @@ package com.example.hostelmanagementsystem;
 public class SingleRoom extends Room{
     boolean isLive;
     Person person;
-    protected SingleRoom(String roomNumber){
-        super(roomNumber);
+    String roomType;
+    protected SingleRoom(String roomNumber,double roomPrice){
+        super(roomNumber,roomPrice);
         // Every room is empty
         isLive = false;
+        roomType = "Single Room";
     }
+
     @Override
     public String addPerson(Person person){
         // If have person live , then isLive equal to true
@@ -45,8 +48,13 @@ public class SingleRoom extends Room{
     }
 
     @Override
+    public String getRoomType() {
+        return roomType;
+    }
+
+    @Override
     public String toString() {
-        String room = "Single Room " + getRoomNumber();
+        String room = getRoomNumber();
         return room;
     }
 }

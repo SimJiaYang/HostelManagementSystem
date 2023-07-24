@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class TripleRoom extends Room {
     ArrayList<Person> persons;
     boolean isLive;
-    protected TripleRoom(String roomNumber){
-        super(roomNumber);
+    String roomType;
+    protected TripleRoom(String roomNumber,double roomPrice){
+        super(roomNumber,roomPrice);
         isLive = false;
+        roomType = "Triple Room";
     }
     @Override
     public String addPerson(Person person){
@@ -51,9 +53,15 @@ public class TripleRoom extends Room {
         room += person;
         return room;
     }
+
+    @Override
+    public String getRoomType() {
+        return roomType;
+    }
+
     @Override
     public String toString() {
-        String room = "Triple Room " + getRoomNumber();
+        String room = getRoomNumber();
         return room;
     }
 

@@ -12,6 +12,6 @@ public class OldHostel extends Hostel{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "\nOld Hostel" + super.toString();
     }
 }

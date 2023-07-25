@@ -3,9 +3,9 @@ package com.example.hostelmanagementsystem;
 import java.util.ArrayList;
 
 public class TripleRoom extends Room {
-    ArrayList<Person> persons;
-    boolean isLive;
-    String roomType;
+    private ArrayList<Person> persons;
+    private boolean isLive;
+    private String roomType;
     protected TripleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
         isLive = false;

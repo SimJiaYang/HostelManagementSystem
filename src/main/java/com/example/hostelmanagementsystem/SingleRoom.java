@@ -1,9 +1,9 @@
 package com.example.hostelmanagementsystem;
 
 public class SingleRoom extends Room{
-    boolean isLive;
-    Person person;
-    String roomType;
+    private boolean isLive;
+    private Person person;
+    private String roomType;
     protected SingleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
         // Every room is empty

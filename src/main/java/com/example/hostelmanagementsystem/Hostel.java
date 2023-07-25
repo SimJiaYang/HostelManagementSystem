@@ -1,13 +1,12 @@
 package com.example.hostelmanagementsystem;
 
-import java.io.CharArrayReader;
 import java.util.ArrayList;
 
 public abstract class Hostel{
     private ArrayList<Room> singleRoom;
     private ArrayList<Room> tripleRoom;
-    int capacitySingleRoom;
-    int capacityTripleRoom;
+    private int capacitySingleRoom;
+    private int capacityTripleRoom;
     protected Hostel(){
         this(0,0,new ArrayList<Room>(),new ArrayList<Room>() );
     }

@@ -7,8 +7,17 @@
     <top>
         <TabPane prefHeight="404.0" prefWidth="600.0" style="-fx-background-color: FAE5D3;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <Tab text="Add">
-                    <fx:include source="add.fxml" />
+                <Tab text="Add Room">
+                    <fx:include source="addRoom.fxml" />
+                </Tab>
+                <Tab text="Delete Room">
+                    <fx:include source="deleteRoom.fxml" />
+                </Tab>
+                <Tab text="Add Person to Room">
+                    <fx:include source="addPersonToRoom.fxml" />
+                </Tab>
+                <Tab text="Delete Person from Room">
+                    <fx:include source="deletePersonFromRoom.fxml" />
                 </Tab>
                 <Tab text="Log Out">
                     <fx:include source="logout.fxml" />

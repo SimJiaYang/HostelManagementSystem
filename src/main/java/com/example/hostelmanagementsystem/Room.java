@@ -3,6 +3,9 @@ package com.example.hostelmanagementsystem;
 public abstract class Room{
     private String roomNumber;
     private double roomPrice;
+    protected Room(){
+        this("unknown",0);
+    }
     protected Room(String roomNumber,double roomPrice){
         this.roomNumber = roomNumber;
         this.roomPrice = roomPrice;

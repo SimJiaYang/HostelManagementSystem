@@ -4,6 +4,10 @@ public class SingleRoom extends Room{
     private boolean isLive;
     private Person person;
     private String roomType;
+    protected SingleRoom(){
+        isLive = false;
+        roomType = "unknown";
+    }
     protected SingleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
         // Every room is empty

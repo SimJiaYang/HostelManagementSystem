@@ -6,6 +6,10 @@ public class TripleRoom extends Room {
     private ArrayList<Person> persons;
     private boolean isLive;
     private String roomType;
+    protected TripleRoom(){
+        isLive = false;
+        roomType = "unknown";
+    }
     protected TripleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
         isLive = false;

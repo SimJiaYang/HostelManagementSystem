@@ -1,13 +1,14 @@
 package com.example.hostelmanagementsystem;
 
 public class Lecturer extends Person implements Price {
-    private final String PHD = "PHD";
-    private final String MASTER = "MASTER";
-    private final String DEGREE = "DEGREE";
+    private final String DEAN = "DEAN";
+    private final String HOD = "HOD";
+    private final String PROFESSOR = "PROFESSOR";
     private String lecturerID;
     private String lecturerEmail;
-    private String academicCert;
+    private String position;
 
+    // Empty constructor
     protected Lecturer() {
         this("unknown", "unknown", "unknown", "unknown",
                 "unknown", "unknown", "unknown", 0);
@@ -15,11 +16,11 @@ public class Lecturer extends Person implements Price {
 
     protected Lecturer(
             String name, String gender, String address, String phoneNumber, String emergencyContact,
-            String lecturerID, String lecturerEmail, int academicCertNumber) {
+            String lecturerID, String lecturerEmail, int positionNumber) {
         super(name, gender, address, phoneNumber, emergencyContact);
         this.lecturerID = lecturerID;
         this.lecturerEmail = lecturerEmail;
-        this.academicCert = validateAcademicCert(academicCertNumber);
+        this.position = validatePosition(positionNumber);
     }
 
     public String getLecturerID() {
@@ -34,22 +35,24 @@ public class Lecturer extends Person implements Price {
         return lecturerEmail;
     }
 
-    public String getAcademicCert() {
-        return academicCert;
+    public String getPosition() {
+        return position;
     }
 
-    public String validateAcademicCert(int academicCert) {
-        String cert = "Degree";
-        if (academicCert == 1) {
-            cert = PHD;
-        } else if (academicCert == 2) {
-            cert = MASTER;
+    // Get lecturer position
+    public String validatePosition(int position) {
+        String positionDetail = "";
+        if (position == 1) {
+            positionDetail = DEAN;
+        } else if (position == 2) {
+            positionDetail = HOD;
         } else {
-            cert = DEGREE;
+            positionDetail = PROFESSOR;
         }
-        return cert;
+        return positionDetail;
     }
 
+    // Get total price for lecturer
     @Override
     public double getTotalPrice(int duration, Room room) {
         boolean isLive = super.isLiveHostel();
@@ -57,11 +60,11 @@ public class Lecturer extends Person implements Price {
         getRoomPrice = duration == 14 ? getRoomPrice * 2 : getRoomPrice;
         // ROOM per price is shot sem price
         if (isLive) {
-            if (academicCert.equals(PHD)) {
+            if (position.equals(DEAN)) {
                 getRoomPrice = getRoomPrice * 0.75;
-            } else if (academicCert.equals(MASTER)) {
+            } else if (position.equals(HOD)) {
                 getRoomPrice = getRoomPrice * 0.85;
-            } else if (academicCert.equals(DEGREE)) {
+            } else if (position.equals(PROFESSOR)) {
                 getRoomPrice = getRoomPrice * 0.95;
             }
         } else {

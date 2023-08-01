@@ -5,6 +5,7 @@ public class Student extends Person implements Price {
     private String studentEmail;
     private boolean isFreshMan;
 
+    // Empty constructor
     protected Student() {
         this("unknown", "unknown", "unknown", "unknown",
                 "unknown", "unknown", "unknown", false);
@@ -39,6 +40,7 @@ public class Student extends Person implements Price {
         this.studentEmail = studentEmail;
     }
 
+    // Get total price  for student
     @Override
     public double getTotalPrice(int duration,Room room) {
         boolean isLive = super.isLiveHostel();

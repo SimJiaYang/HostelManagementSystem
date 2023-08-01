@@ -4,10 +4,13 @@ public class SingleRoom extends Room{
     private boolean isLive;
     private Person person;
     private String roomType;
+
+    // Empty constructor
     protected SingleRoom(){
         isLive = false;
         roomType = "unknown";
     }
+
     protected SingleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
         // Every room is empty
@@ -15,6 +18,7 @@ public class SingleRoom extends Room{
         roomType = "Single Room";
     }
 
+    // Add person to room
     @Override
     public String addPerson(Person person){
         // If have person live , then isLive equal to true
@@ -25,6 +29,8 @@ public class SingleRoom extends Room{
         }
         return isLive ? "Sorry, already full.":"Successfully register";
     }
+
+    //Remove person from room
     public String removePerson(Person person){
         boolean isExist;
         // If same person, mean it is exist
@@ -39,11 +45,11 @@ public class SingleRoom extends Room{
         return isExist ? "Checkout successfully": "Person no exist" ;
     }
 
-
     public String getRoomStatus(){
         return isLive? "Sorry, this room has been full": "This room still available";
     }
 
+    // Get the person lived in the hostel
     @Override
     public String getPersonLived() {
         String room = "Single Room " + getRoomNumber();;
@@ -51,6 +57,7 @@ public class SingleRoom extends Room{
         return room;
     }
 
+    // Get the room type
     @Override
     public String getRoomType() {
         return roomType;

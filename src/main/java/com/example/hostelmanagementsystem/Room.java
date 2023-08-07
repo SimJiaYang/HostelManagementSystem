@@ -26,12 +26,13 @@ public abstract class Room{
         this.roomPrice = roomPrice;
     };
 
-    public abstract String addPerson(Person person);
+    public abstract boolean addPerson(String id);
 
-    public abstract String removePerson(Person person);
+    public abstract boolean removePerson(String id);
 
-    public abstract String getPersonLived();
-
-    public abstract String getRoomType();
+    public String toString() {
+        String room = getRoomNumber();
+        return room;
+    }
 
 }

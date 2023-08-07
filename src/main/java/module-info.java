@@ -6,6 +6,7 @@ module com.example.hostelmanagementsystem {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.example.hostelmanagementsystem to javafx.fxml;
     exports com.example.hostelmanagementsystem;

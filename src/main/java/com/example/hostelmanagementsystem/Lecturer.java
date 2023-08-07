@@ -4,27 +4,21 @@ public class Lecturer extends Person implements Price {
     private final String DEAN = "DEAN";
     private final String HOD = "HOD";
     private final String PROFESSOR = "PROFESSOR";
-    private String lecturerID;
     private String lecturerEmail;
     private String position;
 
     // Empty constructor
     protected Lecturer() {
-        this("unknown", "unknown", "unknown", "unknown",
+        this("unknown","unknown", "unknown","unknown",
                 "unknown", "unknown", "unknown", 0);
     }
 
     protected Lecturer(
-            String name, String gender, String address, String phoneNumber, String emergencyContact,
-            String lecturerID, String lecturerEmail, int positionNumber) {
-        super(name, gender, address, phoneNumber, emergencyContact);
-        this.lecturerID = lecturerID;
+            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,
+            String lecturerEmail, int positionNumber) {
+        super(id,name, gender, address, phoneNumber, emergencyContact);
         this.lecturerEmail = lecturerEmail;
         this.position = validatePosition(positionNumber);
-    }
-
-    public String getLecturerID() {
-        return lecturerID;
     }
 
     public void setLecturerEmail(String lecturerEmail) {
@@ -77,7 +71,6 @@ public class Lecturer extends Person implements Price {
     public String toString() {
         return super.toString() +
                 "\nLecturer{" +
-                "lecturerID='" + lecturerID + '\'' +
                 ", lecturerEmail='" + lecturerEmail + '\'' +
                 '}';
 

@@ -1,6 +1,7 @@
 package com.example.hostelmanagementsystem;
 
 public class Person {
+    private String id;
     private String name;
     private String address;
     private String gender;
@@ -11,18 +12,23 @@ public class Person {
 
     // Empty constructor
     protected Person(){
-        this("unknown","unknown","unknown","unknown","unknown");
+        this("","unknown","unknown","unknown","unknown","unknown");
     }
 
-    protected Person(String name, String gender,String address, String phoneNumber,String emergencyContact) {
+    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact) {
         this.name = name;
         this.gender = gender;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.emergencyContact = emergencyContact;
+        this.id = id;
         // Set the default person no live hostel
         isLiveHostel = false;
         roomNumber = null;
+    }
+
+    public String getId() {
+        return id;
     }
 
     // Get person room number, if available then show, else show error message

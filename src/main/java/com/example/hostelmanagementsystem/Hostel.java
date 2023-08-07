@@ -3,6 +3,7 @@ package com.example.hostelmanagementsystem;
 import java.util.ArrayList;
 
 public abstract class Hostel{
+    private String hostelID;
     private ArrayList<Room> singleRoom;
     private ArrayList<Room> tripleRoom;
     private int capacitySingleRoom;
@@ -10,15 +11,20 @@ public abstract class Hostel{
 
     // Empty constructor
     protected Hostel(){
-        this(0,0,new ArrayList<Room>(),new ArrayList<Room>() );
+        this("unknown",0,0,new ArrayList<Room>(),new ArrayList<Room>() );
     }
 
-    protected Hostel(int capacitySingleRoom,int capacityTripleRoom,ArrayList<Room> singleRoom,ArrayList<Room> tripleRoom) {
+    protected Hostel(String hostelID,int capacitySingleRoom,int capacityTripleRoom,ArrayList<Room> singleRoom,ArrayList<Room> tripleRoom) {
         this.capacitySingleRoom = capacitySingleRoom;
         this.capacityTripleRoom = capacityTripleRoom;
         this.singleRoom = singleRoom;
         this.tripleRoom = tripleRoom;
     }
+
+    public String getHostelID() {
+        return hostelID;
+    }
+
     public int getCapacitySingleRoom(){
         return capacitySingleRoom;
     };

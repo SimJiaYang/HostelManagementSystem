@@ -1,27 +1,21 @@
 package com.example.hostelmanagementsystem;
 
 public class Student extends Person implements Price {
-    private String studentID;
     private String studentEmail;
     private boolean isFreshMan;
 
     // Empty constructor
     protected Student() {
-        this("unknown", "unknown", "unknown", "unknown",
+        this("unknown","unknown",  "unknown", "unknown",
                 "unknown", "unknown", "unknown", false);
     }
 
     protected Student(
-            String name, String gender, String address, String phoneNumber, String emergencyContact,
-            String studentID, String studentEmail, boolean isFreshMan) {
-        super(name, gender, address, phoneNumber, emergencyContact);
-        this.studentID = studentID;
+            String id,String name, String gender, String address, String phoneNumber, String emergencyContact
+            , String studentEmail, boolean isFreshMan) {
+        super(id,name, gender, address, phoneNumber, emergencyContact);
         this.studentEmail = studentEmail;
         this.isFreshMan = isFreshMan;
-    }
-
-    public String getStudentID() {
-        return studentID;
     }
 
     public String getStudentEmail() {
@@ -60,7 +54,6 @@ public class Student extends Person implements Price {
     public String toString() {
         return super.toString() +
                 "\nStudent{" +
-                "studentID='" + studentID + '\'' +
                 ", studentEmail='" + studentEmail + '\'' +
                 '}';
     }

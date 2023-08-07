@@ -1,71 +1,47 @@
 package com.example.hostelmanagementsystem;
 
 public class SingleRoom extends Room{
-    private boolean isLive;
-    private Person person;
-    private String roomType;
+    private boolean isFull;
+    private String id;
 
     // Empty constructor
     protected SingleRoom(){
-        isLive = false;
-        roomType = "unknown";
+        isFull = false;
     }
 
     protected SingleRoom(String roomNumber,double roomPrice){
         super(roomNumber,roomPrice);
-        // Every room is empty
-        isLive = false;
-        roomType = "Single Room";
+        // Every room is empty initial
+        isFull = false;
     }
 
     // Add person to room
     @Override
-    public String addPerson(Person person){
-        // If have person live , then isLive equal to true
-        isLive = this.person != null;
-        // If false, then add a new person, because no person live
-        if(!isLive){
-            this.person = person;
+    public boolean addPerson(String  id){
+        // If false, then add a new person, because no full
+        if(!isFull){
+            this.id = id;
         }
-        return isLive ? "Sorry, already full.":"Successfully register";
+        return isFull;
     }
 
     //Remove person from room
-    public String removePerson(Person person){
+    public boolean removePerson(String id){
         boolean isExist;
-        // If same person, mean it is exist
-        isExist = this.person == person;
+        // If same person, mean it is existed
+        isExist = this.id.equals(id);
 
         // If true, then set the person to null, because has person lived
         if(isExist){
-            this.person = null;
+           this.id = null;
+           // If remove successfully, then set is full to falsse
+           isFull = false;
         }
-        // If have person live , then isLive equal to true
-        isLive = this.person != null;
-        return isExist ? "Checkout successfully": "Person no exist" ;
+        return isExist;
     }
 
-    public String getRoomStatus(){
-        return isLive? "Sorry, this room has been full": "This room still available";
+    public boolean getIsFull() {
+        return isFull;
     }
 
-    // Get the person lived in the hostel
-    @Override
-    public String getPersonLived() {
-        String room = "Single Room " + getRoomNumber();;
-        room += isLive? " lived by " + person.getName():" is empty";
-        return room;
-    }
-
-    // Get the room type
-    @Override
-    public String getRoomType() {
-        return roomType;
-    }
-
-    @Override
-    public String toString() {
-        String room = getRoomNumber();
-        return room;
-    }
 }

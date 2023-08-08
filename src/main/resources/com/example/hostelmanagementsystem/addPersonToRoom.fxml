@@ -17,7 +17,7 @@
                 <Label layoutX="52.0" layoutY="253.0" text="Student / Lecturer ID" />
                 <TextField fx:id="roomNumber" layoutX="209.0" layoutY="211.0" />
                 <TextField fx:id="personID" layoutX="209.0" layoutY="249.0" />
-                <Button fx:id="addPersonToRoom" layoutX="210.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPersonToRoom" style="-fx-background-color: #1D77C7;" text="Delete" textFill="ffffff" />
+                <Button fx:id="addPersonToRoom" layoutX="210.0" layoutY="295.0" mnemonicParsing="false" onAction="#addPersonToRoom" style="-fx-background-color: #1D77C7;" text="Add" textFill="ffffff" />
                 <Button fx:id="clear" layoutX="278.0" layoutY="295.0" mnemonicParsing="false" onAction="#clear" style="-fx-background-color: #880808;" text="Clear" textFill="ffffff" />
                 <Label fx:id="wrongAddPersonToRoom" layoutX="210.0" layoutY="331.0" prefHeight="25.0" prefWidth="266.0" textAlignment="CENTER" />
             </children></AnchorPane>

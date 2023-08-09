@@ -6,14 +6,14 @@ public class Student extends Person implements Price {
 
     // Empty constructor
     protected Student() {
-        this("unknown","unknown",  "unknown", "unknown",
+        this("unknown","unknown",  "unknown", "unknown","unknown",
                 "unknown", "unknown", "unknown", false);
     }
 
     protected Student(
             String id,String name, String gender, String address, String phoneNumber, String emergencyContact
-            , String studentEmail, boolean isFreshMan) {
-        super(id,name, gender, address, phoneNumber, emergencyContact);
+            ,String roomNumber, String studentEmail, boolean isFreshMan) {
+        super(id,name, gender, address, phoneNumber, emergencyContact,roomNumber);
         this.studentEmail = studentEmail;
         this.isFreshMan = isFreshMan;
     }

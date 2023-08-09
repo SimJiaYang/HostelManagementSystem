@@ -9,14 +9,14 @@ public class Lecturer extends Person implements Price {
 
     // Empty constructor
     protected Lecturer() {
-        this("unknown","unknown", "unknown","unknown",
+        this("unknown","unknown", "unknown","unknown","unknown",
                 "unknown", "unknown", "unknown", 0);
     }
 
     protected Lecturer(
-            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,
+            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,String roomNumber,
             String lecturerEmail, int positionNumber) {
-        super(id,name, gender, address, phoneNumber, emergencyContact);
+        super(id,name, gender, address, phoneNumber, emergencyContact,roomNumber);
         this.lecturerEmail = lecturerEmail;
         this.position = validatePosition(positionNumber);
     }

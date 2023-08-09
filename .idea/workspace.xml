@@ -5,30 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/Hostel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -39,14 +33,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="NO_COMMIT" />
+      </set>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -55,11 +56,18 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
   <component name="ProjectId" id="2SkqqVe0hnui93YvC94owLGQyXj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -83,7 +91,7 @@
       <recent name="C:\Users\User\IdeaProjects\HostelManagementSystem\src\main\resources\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestingHostelManagementSystem">
+  <component name="RunManager" selected="Application.HostelManagementSystem">
     <configuration name="HostelManagementSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.hostelmanagementsystem.HostelManagementSystem" />
       <module name="HostelManagementSystem" />
@@ -112,8 +120,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestingHostelManagementSystem" />
         <item itemvalue="Application.HostelManagementSystem" />
+        <item itemvalue="Application.TestingHostelManagementSystem" />
       </list>
     </recent_temporary>
   </component>
@@ -149,6 +157,17 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialize" />

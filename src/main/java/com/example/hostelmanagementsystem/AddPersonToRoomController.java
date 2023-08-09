@@ -24,6 +24,10 @@ public class AddPersonToRoomController {
 
     public void addPersonToRoom(ActionEvent event) throws Exception{
         checkAddPersonToRoom();
+        String room = roomNumber.getText();
+        String id = personID.getText();
+        Person p1 = new Person(id,id,id,id,id,id,room);
+        dbConnect.addUser(p1);
     }
 
     private void checkAddPersonToRoom() throws IOException {

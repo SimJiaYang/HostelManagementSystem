@@ -12,10 +12,10 @@ public class Person {
 
     // Empty constructor
     protected Person(){
-        this("","unknown","unknown","unknown","unknown","unknown");
+        this("","unknown","unknown","unknown","unknown","unknown","unknown");
     }
 
-    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact) {
+    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact,String roomNumber) {
         this.name = name;
         this.gender = gender;
         this.address = address;
@@ -24,7 +24,7 @@ public class Person {
         this.id = id;
         // Set the default person no live hostel
         isLiveHostel = false;
-        roomNumber = null;
+        this.roomNumber = roomNumber;
     }
 
     public String getId() {

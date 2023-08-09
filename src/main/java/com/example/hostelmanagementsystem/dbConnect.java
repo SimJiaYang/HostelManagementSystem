@@ -1,8 +1,7 @@
 package com.example.hostelmanagementsystem;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import javafx.scene.control.Alert;
 
 public class dbConnect {
@@ -50,7 +49,7 @@ public class dbConnect {
         return output;
     }
 
-    public static void getRoom(String roomID){
+    public static String getRoomLivedByWho(String roomID){
         String output = "";
         int count = 0;
         try{
@@ -63,15 +62,35 @@ public class dbConnect {
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 String personID = result.getString("id");
-                output += personID + " ";
+                String roomType = result.getString("type");
+                output += "\n" + personID + " " + roomType;
                 count++;
             }
         }catch(SQLException e){
             output = "Fail to add person to room, Please try again";
         }
+        return output;
     }
 
-
+    public static String getNumberPersonLived(String roomID){
+        String output = "";
+        int count = 0;
+        try{
+            String sql ="SELECT person.id FROM person " +
+                    "WHERE person.room_number=?";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, roomID);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String personID = result.getString("id");
+                count++;
+            }
+            output = String.valueOf(count);
+        }catch(SQLException e){
+            output = "Fail to add person to room, Please try again";
+        }
+        return output;
+    }
 
     // set person rooms
     public static String addUser(String roomNumber,String personID){
@@ -99,7 +118,7 @@ public class dbConnect {
     }
 
     //delete room from person
-    public static String delete(String personID){
+    public static String deleteUser(String personID){
         String output = "";
         String id = personID;
 

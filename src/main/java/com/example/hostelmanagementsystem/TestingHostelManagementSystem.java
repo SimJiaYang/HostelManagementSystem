@@ -1,7 +1,5 @@
 package com.example.hostelmanagementsystem;
 
-import java.util.ArrayList;
-
 public class TestingHostelManagementSystem {
     public static void main(String[] args){
         dbConnect dbConnect = new dbConnect();
@@ -10,7 +8,14 @@ public class TestingHostelManagementSystem {
         System.out.println( dbConnect.showHostel(1));
         System.out.println("\nNew Hostel");
         System.out.println( dbConnect.showHostel(2));
-
+        System.out.println("\nGET ROOM NS1");
+        System.out.println(dbConnect.getRoomLivedByWho("NS1"));
+        System.out.println("\nGetNumberPersonLived for NS1");
+        System.out.println(dbConnect.getNumberPersonLived("NS1"));
+        System.out.println("Add room");
+        System.out.println("Delete Room");
+        System.out.println("Add user to room");
+        System.out.println("Delete user from room");
 
 //        newHostel();
 //        oldHostel();

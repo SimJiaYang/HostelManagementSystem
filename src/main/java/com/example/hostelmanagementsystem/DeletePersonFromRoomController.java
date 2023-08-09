@@ -18,7 +18,7 @@ public class DeletePersonFromRoomController {
     public void deletePersonFromRoom(ActionEvent event) throws Exception{
         checkDeletePersonFromRoom();
         String id = personID.getText();
-        dbConnect.delete(id);
+        dbConnect.deleteUser(id);
     }
 
     private void checkDeletePersonFromRoom() throws IOException {

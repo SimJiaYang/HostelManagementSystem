@@ -50,6 +50,29 @@ public class dbConnect {
         return output;
     }
 
+    public static void getRoom(String roomID){
+        String output = "";
+        int count = 0;
+        try{
+            String sql ="SELECT person.id, roomtype.type FROM person " +
+                    "LEFT JOIN room ON person.room_number = room.id " +
+                    "LEFT JOIN roomtype ON room.typeid = roomtype.id " +
+                    "WHERE person.room_number=? ";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, roomID);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String personID = result.getString("id");
+                output += personID + " ";
+                count++;
+            }
+        }catch(SQLException e){
+            output = "Fail to add person to room, Please try again";
+        }
+    }
+
+
+
     // set person rooms
     public static String addUser(String roomNumber,String personID){
         String output = "";

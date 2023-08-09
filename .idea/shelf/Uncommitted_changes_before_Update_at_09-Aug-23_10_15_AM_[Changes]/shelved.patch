@@ -1,0 +1,795 @@
+Index: src/main/java/com/example/hostelmanagementsystem/Lecturer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\npublic class Lecturer extends Person implements Price {\r\n    private final String DEAN = \"DEAN\";\r\n    private final String HOD = \"HOD\";\r\n    private final String PROFESSOR = \"PROFESSOR\";\r\n    private String lecturerEmail;\r\n    private String position;\r\n\r\n    // Empty constructor\r\n    protected Lecturer() {\r\n        this(\"unknown\",\"unknown\", \"unknown\",\"unknown\",\r\n                \"unknown\", \"unknown\", \"unknown\", 0);\r\n    }\r\n\r\n    protected Lecturer(\r\n            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,\r\n            String lecturerEmail, int positionNumber) {\r\n        super(id,name, gender, address, phoneNumber, emergencyContact);\r\n        this.lecturerEmail = lecturerEmail;\r\n        this.position = validatePosition(positionNumber);\r\n    }\r\n\r\n    public void setLecturerEmail(String lecturerEmail) {\r\n        this.lecturerEmail = lecturerEmail;\r\n    }\r\n\r\n    public String getLecturerEmail() {\r\n        return lecturerEmail;\r\n    }\r\n\r\n    public String getPosition() {\r\n        return position;\r\n    }\r\n\r\n    // Get lecturer position\r\n    public String validatePosition(int position) {\r\n        String positionDetail = \"\";\r\n        if (position == 1) {\r\n            positionDetail = DEAN;\r\n        } else if (position == 2) {\r\n            positionDetail = HOD;\r\n        } else {\r\n            positionDetail = PROFESSOR;\r\n        }\r\n        return positionDetail;\r\n    }\r\n\r\n    // Get total price for lecturer\r\n    @Override\r\n    public double getTotalPrice(int duration, Room room) {\r\n        boolean isLive = super.isLiveHostel();\r\n        double getRoomPrice = room.getRoomPrice();\r\n        getRoomPrice = duration == 14 ? getRoomPrice * 2 : getRoomPrice;\r\n        // ROOM per price is shot sem price\r\n        if (isLive) {\r\n            if (position.equals(DEAN)) {\r\n                getRoomPrice = getRoomPrice * 0.75;\r\n            } else if (position.equals(HOD)) {\r\n                getRoomPrice = getRoomPrice * 0.85;\r\n            } else if (position.equals(PROFESSOR)) {\r\n                getRoomPrice = getRoomPrice * 0.95;\r\n            }\r\n        } else {\r\n            getRoomPrice = 0;\r\n        }\r\n        return getRoomPrice;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return super.toString() +\r\n                \"\\nLecturer{\" +\r\n                \", lecturerEmail='\" + lecturerEmail + '\\'' +\r\n                '}';\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/Lecturer.java b/src/main/java/com/example/hostelmanagementsystem/Lecturer.java
+--- a/src/main/java/com/example/hostelmanagementsystem/Lecturer.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/Lecturer.java	(date 1691545037954)
+@@ -9,14 +9,14 @@
+ 
+     // Empty constructor
+     protected Lecturer() {
+-        this("unknown","unknown", "unknown","unknown",
++        this("unknown","unknown", "unknown","unknown","unknown","unknown",
+                 "unknown", "unknown", "unknown", 0);
+     }
+ 
+     protected Lecturer(
+-            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,
++            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,String personType,String roomNumber,
+             String lecturerEmail, int positionNumber) {
+-        super(id,name, gender, address, phoneNumber, emergencyContact);
++        super(id,name, gender, address, phoneNumber, emergencyContact,personType,roomNumber);
+         this.lecturerEmail = lecturerEmail;
+         this.position = validatePosition(positionNumber);
+     }
+Index: src/main/java/com/example/hostelmanagementsystem/dbConnect.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\nimport java.sql.Connection;\r\nimport java.sql.DriverManager;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.sql.Statement;\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport javafx.scene.control.Alert;\r\n\r\npublic class dbConnect {\r\n    PreparedStatement preparedStatement;\r\n    Statement statement;\r\n    ResultSet result;\r\n    Connection con;\r\n\r\n    public dbConnect(){\r\n\r\n    }\r\n\r\n    public String initializeDB(){\r\n        String output = \"\";\r\n\r\n        String dbURL = \"jdbc:mysql://localhost:3306/oop_group\";\r\n        String username = \"root\";\r\n        String password = \"1017\";\r\n        try {\r\n            con = DriverManager.getConnection(dbURL, username, password);\r\n            if (con != null) {\r\n                output = \"Database --> connected\";\r\n            }\r\n        }catch (SQLException ex){\r\n            output = \"Database --> not connected\";\r\n        }\r\n        return output;\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/dbConnect.java b/src/main/java/com/example/hostelmanagementsystem/dbConnect.java
+--- a/src/main/java/com/example/hostelmanagementsystem/dbConnect.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/dbConnect.java	(date 1691547327078)
+@@ -10,10 +10,10 @@
+ import javafx.scene.control.Alert;
+ 
+ public class dbConnect {
+-    PreparedStatement preparedStatement;
++    static PreparedStatement preparedStatement;
+     Statement statement;
+-    ResultSet result;
+-    Connection con;
++    static ResultSet result;
++    static Connection con;
+ 
+     public dbConnect(){
+ 
+@@ -22,9 +22,9 @@
+     public String initializeDB(){
+         String output = "";
+ 
+-        String dbURL = "jdbc:mysql://localhost:3306/oop_group";
++        String dbURL = "jdbc:mysql://localhost:3306/oopgroup";
+         String username = "root";
+-        String password = "1017";
++        String password = "Kellybe0115";
+         try {
+             con = DriverManager.getConnection(dbURL, username, password);
+             if (con != null) {
+@@ -36,5 +36,157 @@
+         return output;
+     }
+ 
++    public static String addUser(Person newPerson){
++        String output = "";
++
++        String id = newPerson.getId();
++        String roomNumber = newPerson.getRoomNumber();
++
++            try{
++                if(findID(id) == true) {
++                    String sql ="UPDATE person SET roomNumber=? WHERE id=?";
++                    preparedStatement = con.prepareStatement(sql);
++                    preparedStatement.setString(1, roomNumber);
++                    preparedStatement.setString(2, id);
++
++                    int rows = preparedStatement.executeUpdate();
++
++                    if (rows > 0) {
++                        output = "A new room has been assigned successfully";
++                    }
++                }
++                else showError("Error","The person doesn't exist");
++            }catch(SQLException e){
++                output = "Fail to add person, Please try again";
++            }
++
++
++        return output;
++    }
++
++    //delete room from person
++    public static String delete(Person newPerson){
++        String output = "";
++        String id = newPerson.getId();
++
++        try{
++            if(findID(id) == true) {
++            String sql ="UPDATE person SET roomNumber=? WHERE id=?";
++            preparedStatement = con.prepareStatement(sql);
++            preparedStatement.setString(1,"-");
++            preparedStatement.setString(2,id);
++
++            int rows = preparedStatement.executeUpdate();
++            if(rows>0){
++                output = "The room has been removed from the person";
++            }}
++            else{
++                showError("Error","The person not found");
++
++            }
++            // con.close();
++        }catch(SQLException e){
++            output = "Fail to delete the room from person, \nPlease try again";
++        }
++        return output;
++    }
++
++    //add new room
++    public String addUser(Room newRoom){
++        String output = "";
++        String id = newRoom.getRoomNumber();
++        double price= newRoom.getRoomPrice();
++        if(findRoomID(id) == true){
++            showError("Error","The room already exist");
++        }else{
++            try{
++                String sql ="INSERT INTO room(id,price) VALUES(?,?)";
++                preparedStatement  = con.prepareStatement(sql);
++                preparedStatement.setString(1,id);
++                preparedStatement.setString(2, String.valueOf(price));
++                int rows = preparedStatement.executeUpdate();
++
++                if(rows>0){
++                    output = "A new room has been inserted successfully";
++                }
++            }catch(SQLException e){
++                output = "Fail to add the room, Please try again";
++            }
++        }
++        return output;
++    }
++
++    //delete room from person
++    public String delete(Room newRoom){
++        String output = "";
++        String id = newRoom.getRoomNumber();
++        try{
++            if(findRoomID(id) == true) {
++                String sql ="DELETE FROM room WHERE id=?";
++                preparedStatement = con.prepareStatement(sql);
++                preparedStatement.setString(1,id);
++
++                int rows = preparedStatement.executeUpdate();
++                if(rows>0){
++                    output = "The room has been removed";
++                }}
++            else{
++                showError("Error","The room not found");
++
++            }
++            // con.close();
++        }catch(SQLException e){
++            output = "Fail to delete the room, \nPlease try again";
++        }
++        return output;
++    }
++
++    //search person data
++    public static boolean findID(String id){
++        boolean gotIt= false;
++        try{
++            String searchSQL ="SELECT * FROM person WHERE id=?";
++            preparedStatement = con.prepareStatement(searchSQL);
++            preparedStatement.setString(1,id);
++            result = preparedStatement.executeQuery();
++            gotIt = result.next();
++        }catch(SQLException e){
++            e.printStackTrace();
++        }
++        return gotIt;
++    }
++
++    //search room data
++    public boolean findRoomID(String id){
++        boolean gotIt= false;
++        try{
++            String searchSQL ="SELECT * FROM room WHERE id=?";
++            preparedStatement = con.prepareStatement(searchSQL);
++            preparedStatement.setString(1,id);
++            result = preparedStatement.executeQuery();
++            gotIt = result.next();
++        }catch(SQLException e){
++            e.printStackTrace();
++        }
++        return gotIt;
++    }
++
++    //--------Display error message------------//
++    public static void showError(String title, String msg){
++        Alert alert = new Alert(Alert.AlertType.ERROR);
++        alert.setTitle(title);
++        alert.setHeaderText(null);
++        alert.setContentText(msg);
++        alert.showAndWait();
++    }
++
++    //--------Display Message------------//
++    public void showInfo(String title, String msg){
++        Alert alert = new Alert(Alert.AlertType.INFORMATION);
++        alert.setTitle(title);
++        alert.setHeaderText(null);
++        alert.setContentText(msg);
++        alert.showAndWait();
++    }
+ }
+ 
+Index: src/main/java/com/example/hostelmanagementsystem/Student.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\npublic class Student extends Person implements Price {\r\n    private String studentEmail;\r\n    private boolean isFreshMan;\r\n\r\n    // Empty constructor\r\n    protected Student() {\r\n        this(\"unknown\",\"unknown\",  \"unknown\", \"unknown\",\r\n                \"unknown\", \"unknown\", \"unknown\", false);\r\n    }\r\n\r\n    protected Student(\r\n            String id,String name, String gender, String address, String phoneNumber, String emergencyContact\r\n            , String studentEmail, boolean isFreshMan) {\r\n        super(id,name, gender, address, phoneNumber, emergencyContact);\r\n        this.studentEmail = studentEmail;\r\n        this.isFreshMan = isFreshMan;\r\n    }\r\n\r\n    public String getStudentEmail() {\r\n        return studentEmail;\r\n    }\r\n\r\n    public boolean isFreshMan() {\r\n        return isFreshMan;\r\n    }\r\n\r\n    public void setFreshMan(boolean freshMan) {\r\n        isFreshMan = freshMan;\r\n    }\r\n\r\n    public void setStudentEmail(String studentEmail) {\r\n        this.studentEmail = studentEmail;\r\n    }\r\n\r\n    // Get total price  for student\r\n    @Override\r\n    public double getTotalPrice(int duration,Room room) {\r\n        boolean isLive = super.isLiveHostel();\r\n        double getRoomPrice = room.getRoomPrice();\r\n        getRoomPrice = duration == 14 ? getRoomPrice * 2 : getRoomPrice;\r\n        if(isLive) {\r\n            if(isFreshMan){\r\n               getRoomPrice *= 0.8;\r\n            }\r\n        }else{\r\n            getRoomPrice = 0;\r\n        }\r\n        return getRoomPrice;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return super.toString() +\r\n                \"\\nStudent{\" +\r\n                \", studentEmail='\" + studentEmail + '\\'' +\r\n                '}';\r\n    }\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/Student.java b/src/main/java/com/example/hostelmanagementsystem/Student.java
+--- a/src/main/java/com/example/hostelmanagementsystem/Student.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/Student.java	(date 1691545071945)
+@@ -6,14 +6,14 @@
+ 
+     // Empty constructor
+     protected Student() {
+-        this("unknown","unknown",  "unknown", "unknown",
++        this("unknown","unknown",  "unknown", "unknown","unknown","unknown",
+                 "unknown", "unknown", "unknown", false);
+     }
+ 
+     protected Student(
+-            String id,String name, String gender, String address, String phoneNumber, String emergencyContact
+-            , String studentEmail, boolean isFreshMan) {
+-        super(id,name, gender, address, phoneNumber, emergencyContact);
++            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,String personType,String roomNumber,
++             String studentEmail, boolean isFreshMan) {
++        super(id,name, gender, address, phoneNumber, emergencyContact,personType,roomNumber);
+         this.studentEmail = studentEmail;
+         this.isFreshMan = isFreshMan;
+     }
+Index: src/main/java/com/example/hostelmanagementsystem/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\npublic class Person {\r\n    private String id;\r\n    private String name;\r\n    private String address;\r\n    private String gender;\r\n    private String phoneNumber;\r\n    private String emergencyContact;\r\n    private boolean isLiveHostel;\r\n    private String roomNumber;\r\n\r\n    // Empty constructor\r\n    protected Person(){\r\n        this(\"\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\");\r\n    }\r\n\r\n    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact) {\r\n        this.name = name;\r\n        this.gender = gender;\r\n        this.address = address;\r\n        this.phoneNumber = phoneNumber;\r\n        this.emergencyContact = emergencyContact;\r\n        this.id = id;\r\n        // Set the default person no live hostel\r\n        isLiveHostel = false;\r\n        roomNumber = null;\r\n    }\r\n\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    // Get person room number, if available then show, else show error message\r\n    public String getRoomNumber() {\r\n        if(roomNumber == null){\r\n            return \"This person don't live hostel\";\r\n        }\r\n        return roomNumber;\r\n    }\r\n\r\n    // When student register, set the room number\r\n    public void setRoomNumber(String roomNumber) {\r\n        isLiveHostel = true;\r\n        this.roomNumber = roomNumber;\r\n    }\r\n\r\n    // Since the student checkout, remove room number\r\n    public void removeRoomNumber() {\r\n        isLiveHostel = false;\r\n        this.roomNumber = null;\r\n    }\r\n\r\n    // Confirm that this person is live hostel\r\n    public boolean isLiveHostel() {\r\n        return isLiveHostel;\r\n    }\r\n\r\n    public String getName() { return name; }\r\n\r\n    public void setName(String name) { this.name = name; }\r\n\r\n    public String getGender() {\r\n        return gender;\r\n    }\r\n\r\n    public void setGender(String gender) {\r\n        this.gender = gender;\r\n    }\r\n\r\n    public String getAddress() { return address; }\r\n\r\n    public void setAddress(String address) { this.address = address; }\r\n\r\n    public String getPhoneNumber() { return phoneNumber;}\r\n\r\n    public void setPhoneNumber(String phoneNumber) {\r\n        this.phoneNumber = phoneNumber;\r\n    }\r\n\r\n    public String getEmergencyContact() {\r\n        return emergencyContact;\r\n    }\r\n\r\n    public void setEmergencyContact(String emergencyContact) {\r\n        this.emergencyContact = emergencyContact;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Person{\" +\r\n                \"name='\" + name + '\\'' +\r\n                \", address='\" + address + '\\'' +\r\n                \", gender='\" + gender + '\\'' +\r\n                \", phoneNumber='\" + phoneNumber + '\\'' +\r\n                \", emergencyContact='\" + emergencyContact + '\\'' +\r\n                '}';\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/Person.java b/src/main/java/com/example/hostelmanagementsystem/Person.java
+--- a/src/main/java/com/example/hostelmanagementsystem/Person.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/Person.java	(date 1691547132707)
+@@ -9,22 +9,24 @@
+     private String emergencyContact;
+     private boolean isLiveHostel;
+     private String roomNumber;
++    private String personType;
+ 
+     // Empty constructor
+     protected Person(){
+-        this("","unknown","unknown","unknown","unknown","unknown");
++        this("","unknown","unknown","unknown","unknown","unknown","unknown","unknown");
+     }
+ 
+-    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact) {
++    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact,String personType, String roomNumber) {
+         this.name = name;
+         this.gender = gender;
+         this.address = address;
+         this.phoneNumber = phoneNumber;
+         this.emergencyContact = emergencyContact;
+         this.id = id;
++        this.personType=personType;
+         // Set the default person no live hostel
+         isLiveHostel = false;
+-        roomNumber = null;
++        this.roomNumber = roomNumber;
+     }
+ 
+     public String getId() {
+@@ -85,7 +87,9 @@
+     public void setEmergencyContact(String emergencyContact) {
+         this.emergencyContact = emergencyContact;
+     }
++    public String getPersonType() { return personType; }
+ 
++    public void setPersonType(String name) { this.personType = personType; }
+     @Override
+     public String toString() {
+         return "Person{" +
+Index: src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.paint.Color;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class AddPersonToRoomController {\r\n\r\n    @FXML\r\n    private TextField roomNumber;\r\n    @FXML\r\n    private TextField personID;\r\n    @FXML\r\n    private Label wrongAddPersonToRoom;\r\n    @FXML\r\n    private Button addPersonToRoom;\r\n    @FXML\r\n    private Button clear;\r\n\r\n    public void addPersonToRoom(ActionEvent event) throws Exception{\r\n        checkAddPersonToRoom();\r\n    }\r\n\r\n    private void checkAddPersonToRoom() throws IOException {\r\n        wrongAddPersonToRoom.setTextFill(Color.RED);\r\n        if (roomNumber.getText().toString().equals(\"\")){\r\n            wrongAddPersonToRoom.setText(\"Please enter room number!\");\r\n        }\r\n        else if (personID.getText().toString().equals(\"\")){\r\n            wrongAddPersonToRoom.setText(\"Please enter student / lecturer id!\");\r\n        }else {\r\n            wrongAddPersonToRoom.setText(\"Successfully add the student / lecturer to room!\");\r\n            wrongAddPersonToRoom.setTextFill(Color.GREEN);\r\n        }\r\n\r\n    }\r\n    public void clear(ActionEvent event) throws Exception{\r\n        roomNumber.clear();\r\n        personID.clear();\r\n        wrongAddPersonToRoom.setText(\"\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java b/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java
+--- a/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java	(date 1691544995739)
+@@ -24,6 +24,10 @@
+ 
+     public void addPersonToRoom(ActionEvent event) throws Exception{
+         checkAddPersonToRoom();
++        String room = roomNumber.getText();
++        String id = personID.getText();
++        Person p1 = new Person(id,id,id,id,id,id,id,room);
++        dbConnect.addUser(p1);
+     }
+ 
+     private void checkAddPersonToRoom() throws IOException {
+Index: src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class HostelManagementSystem extends Application {\r\n    private static Stage stage;\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) throws IOException {\r\n        stage = primaryStage;\r\n        primaryStage.setResizable(false);\r\n        Parent root = FXMLLoader.load(getClass().getResource(\"login.fxml\"));\r\n        Scene scene = new Scene(root, 600, 400);\r\n        primaryStage.setTitle(\"Hostel Management System\");\r\n        primaryStage.setScene(scene);\r\n        primaryStage.show();\r\n    }\r\n\r\n    public void changeScene(String fxml) throws IOException{\r\n        Parent pane = FXMLLoader.load(getClass().getResource(fxml));\r\n        stage.getScene().setRoot(pane);\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java b/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java
+--- a/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java	(date 1691545213588)
+@@ -9,6 +9,7 @@
+ import java.io.IOException;
+ 
+ public class HostelManagementSystem extends Application {
++
+     private static Stage stage;
+ 
+     @Override
+@@ -28,6 +29,8 @@
+     }
+ 
+     public static void main(String[] args) {
++        dbConnect dbConnect = new dbConnect();
++        System.out.println(dbConnect.initializeDB());
+         launch();
+     }
+ }
+Index: src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hostelmanagementsystem;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.paint.Color;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class DeletePersonFromRoomController {\r\n\r\n    @FXML\r\n    private TextField personID;\r\n    @FXML\r\n    private Label wrongDeletePersonFromRoom;\r\n\r\n    public void deletePersonFromRoom(ActionEvent event) throws Exception{\r\n        checkDeletePersonFromRoom();\r\n    }\r\n\r\n    private void checkDeletePersonFromRoom() throws IOException {\r\n        wrongDeletePersonFromRoom.setTextFill(Color.RED);\r\n        if (personID.getText().toString().equals(\"\")){\r\n            wrongDeletePersonFromRoom.setText(\"Please enter student / lecturer id!\");\r\n        }\r\n        else {\r\n            wrongDeletePersonFromRoom.setText(\"Successfully delete the student / lecturer from room!\");\r\n            wrongDeletePersonFromRoom.setTextFill(Color.GREEN);\r\n        }\r\n    }\r\n\r\n    public void clear(ActionEvent event) throws Exception{\r\n        personID.clear();\r\n        wrongDeletePersonFromRoom.setText(\"\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java b/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java
+--- a/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java	(date 1691547281488)
+@@ -17,6 +17,9 @@
+ 
+     public void deletePersonFromRoom(ActionEvent event) throws Exception{
+         checkDeletePersonFromRoom();
++        String id = personID.getText();
++        Person p1 = new Person(id,id,id,id,id,id,id,id);
++        dbConnect.delete(p1);
+     }
+ 
+     private void checkDeletePersonFromRoom() throws IOException {
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ /dev/null	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
+@@ -1,14 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]" date="1690805747482" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 31-Jul-23 8:15 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/com/example/hostelmanagementsystem/Hostel.class" />
+-    <option name="AFTER_PATH" value="target/classes/com/example/hostelmanagementsystem/Hostel.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/Hostel.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+-    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/module-info.class" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ /dev/null	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
+@@ -1,155 +0,0 @@
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-+++ /dev/null	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-@@ -1,17 +0,0 @@
+--Index: src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package com.example.hostelmanagementsystem;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.layout.BorderPane;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class HostelManagementSystem extends Application {\r\n    @Override\r\n    public void start(Stage stage) throws IOException {\r\n        BorderPane bp= new BorderPane();\r\n        Label title = new Label(\"Hello World\");\r\n        bp.setCenter(title);\r\n        Scene scene = new Scene(bp, 320, 240);\r\n        stage.setTitle(\"Hello!\");\r\n        stage.setScene(scene);\r\n        stage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        System.out.println(new Person());\r\n        System.out.println(new Lecturer());\r\n        System.out.println(new Student());\r\n        launch();\r\n    }\r\n}
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java b/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java
+----- a/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java	
+--+++ b/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java	
+--@@ -26,4 +26,4 @@
+--         System.out.println(new Student());
+--         launch();
+--     }
+---}
+--\ No newline at end of file
+--+}
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-+++ /dev/null	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1" date="1690125174192" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm_[Changes]1/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23/7/2023 11:12 pm [Changes]" />
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SkqqVe0hnui93YvC94owLGQyXj\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/HostelManagementSystem/src/main/resources/images&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\User\\IdeaProjects\\HostelManagementSystem\\src\\main\\resources\\images\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"HostelManagementSystem\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.hostelmanagementsystem.HostelManagementSystem\" />\r\n      <module name=\"HostelManagementSystem\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.hostelmanagementsystem.Hostel\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.HostelManagementSystem\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73\" name=\"Changes\" comment=\"\" />\r\n      <created>1689701120228</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1689701120228</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Initialize\">\r\n      <created>1689701342075</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689701342075</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Add hostel and person file\">\r\n      <created>1690118710301</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1690118710301</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Initialize\" />\r\n    <MESSAGE value=\"Add hostel and person file\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Add hostel and person file\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-+++ b/.idea/workspace.xml	(date 1690434030524)
+-@@ -4,16 +4,22 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="">
+-+    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
+-+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_10_16_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_10_16_pm__Changes_.xml" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_.xml" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2023_11_12_pm__Changes_1.xml" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-     <option name="LAST_RESOLUTION" value="IGNORE" />
+-+  </component>
+-+  <component name="CodeStyleSettingsInfer">
+-+    <option name="done" value="true" />
+-   </component>
+-   <component name="FileTemplateManagerImpl">
+-     <option name="RECENT_TEMPLATES">
+-@@ -27,9 +33,15 @@
+-   <component name="Git.Settings">
+-     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-   </component>
+-+  <component name="MarkdownSettingsMigration">
+-+    <option name="stateVersion" value="1" />
+-+  </component>
+-   <component name="ProblemsViewState">
+-     <option name="selectedTabId" value="CurrentFile" />
+-   </component>
+-+  <component name="ProjectCodeStyleSettingsMigration">
+-+    <option name="version" value="2" />
+-+  </component>
+-   <component name="ProjectId" id="2SkqqVe0hnui93YvC94owLGQyXj" />
+-   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-     <ConfirmationsSetting value="1" id="Add" />
+-@@ -38,17 +50,17 @@
+-     <option name="hideEmptyMiddlePackages" value="true" />
+-     <option name="showLibraryContents" value="true" />
+-   </component>
+--  <component name="PropertiesComponent">{
+--  &quot;keyToString&quot;: {
+--    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+--    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+--    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+--    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/HostelManagementSystem/src/main/resources/images&quot;,
+--    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+--    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+--    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+-+  <component name="PropertiesComponent"><![CDATA[{
+-+  "keyToString": {
+-+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-+    "RunOnceActivity.ShowReadmeOnStart": "true",
+-+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-+    "last_opened_file_path": "C:/Users/cjunj/Downloads/CampusManagementSystem-master/CampusManagementSystem-master",
+-+    "project.structure.last.edited": "Modules",
+-+    "project.structure.proportion": "0.0",
+-+    "project.structure.side.proportion": "0.0"
+-   }
+--}</component>
+-+}]]></component>
+-   <component name="RecentsManager">
+-     <key name="CopyFile.RECENT_KEYS">
+-       <recent name="C:\Users\User\IdeaProjects\HostelManagementSystem\src\main\resources\images" />
+-@@ -99,6 +111,17 @@
+-     </task>
+-     <option name="localTasksCounter" value="3" />
+-     <servers />
+-+  </component>
+-+  <component name="Vcs.Log.Tabs.Properties">
+-+    <option name="TAB_STATES">
+-+      <map>
+-+        <entry key="MAIN">
+-+          <value>
+-+            <State />
+-+          </value>
+-+        </entry>
+-+      </map>
+-+    </option>
+-   </component>
+-   <component name="VcsManagerConfiguration">
+-     <MESSAGE value="Initialize" />
+-Index: .idea/misc.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_20\" default=\"true\" project-jdk-name=\"20\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/misc.xml b/.idea/misc.xml
+---- a/.idea/misc.xml	(revision 4ad765cede1abc262572f8d11c5cb9a55db4c34e)
+-+++ b/.idea/misc.xml	(date 1690433142163)
+-@@ -8,7 +8,7 @@
+-       </list>
+-     </option>
+-   </component>
+--  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="20" project-jdk-type="JavaSDK">
+-+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="20" project-jdk-type="JavaSDK">
+-     <output url="file://$PROJECT_DIR$/out" />
+-   </component>
+- </project>
+-\ No newline at end of file
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"ProjectCodeStyleConfiguration\">\r\n  <code_scheme name=\"Project\" version=\"173\">\r\n    <ScalaCodeStyleSettings>\r\n      <option name=\"MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE\" value=\"true\" />\r\n    </ScalaCodeStyleSettings>\r\n  </code_scheme>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/Project.xml b/.idea/codeStyles/Project.xml
+--- a/.idea/codeStyles/Project.xml	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/.idea/codeStyles/Project.xml	(date 1691400393203)
+@@ -1,5 +1,29 @@
+ <component name="ProjectCodeStyleConfiguration">
+   <code_scheme name="Project" version="173">
++    <DBN-PSQL>
++      <case-options enabled="true">
++        <option name="KEYWORD_CASE" value="lower" />
++        <option name="FUNCTION_CASE" value="lower" />
++        <option name="PARAMETER_CASE" value="lower" />
++        <option name="DATATYPE_CASE" value="lower" />
++        <option name="OBJECT_CASE" value="preserve" />
++      </case-options>
++      <formatting-settings enabled="false" />
++    </DBN-PSQL>
++    <DBN-SQL>
++      <case-options enabled="true">
++        <option name="KEYWORD_CASE" value="lower" />
++        <option name="FUNCTION_CASE" value="lower" />
++        <option name="PARAMETER_CASE" value="lower" />
++        <option name="DATATYPE_CASE" value="lower" />
++        <option name="OBJECT_CASE" value="preserve" />
++      </case-options>
++      <formatting-settings enabled="false">
++        <option name="STATEMENT_SPACING" value="one_line" />
++        <option name="CLAUSE_CHOP_DOWN" value="chop_down_if_statement_long" />
++        <option name="ITERATION_ELEMENTS_WRAPPING" value="chop_down_if_not_single" />
++      </formatting-settings>
++    </DBN-SQL>
+     <ScalaCodeStyleSettings>
+       <option name="MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE" value="true" />
+     </ScalaCodeStyleSettings>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73\" name=\"Changes\" comment=\"Add hostel and person file\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dbnavigator.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dbnavigator.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\r\n  \"lastFilter\": {\r\n    \"state\": \"OPEN\"\r\n  }\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"22cf6098-d91f-443a-8496-d24aeb61279e\" />\r\n        <option name=\"url\" value=\"https://github.com/SimJiaYang/HostelManagementSystem.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"ProjectErrors\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SkqqVe0hnui93YvC94owLGQyXj\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Downloads/mysql-connector-j-8.1.0/mysql-connector-j-8.1.0.jar&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\User\\IdeaProjects\\HostelManagementSystem\\src\\main\\resources\\images\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.TestingHostelManagementSystem\">\r\n    <configuration name=\"HostelManagementSystem\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.hostelmanagementsystem.HostelManagementSystem\" />\r\n      <module name=\"HostelManagementSystem\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.hostelmanagementsystem.Hostel\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"TestingHostelManagementSystem\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.hostelmanagementsystem.TestingHostelManagementSystem\" />\r\n      <module name=\"HostelManagementSystem\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.hostelmanagementsystem.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.TestingHostelManagementSystem\" />\r\n        <item itemvalue=\"Application.HostelManagementSystem\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73\" name=\"Changes\" comment=\"\" />\r\n      <created>1689701120228</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1689701120228</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Initialize\">\r\n      <created>1689701342075</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689701342075</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Add hostel and person file\">\r\n      <created>1690118710301</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1690118710301</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"add/delete room ui&#10;add/delete person to/from room ui\">\r\n      <created>1690815607982</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1690815607982</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Initialize\" />\r\n    <MESSAGE value=\"Add hostel and person file\" />\r\n    <MESSAGE value=\"add/delete room ui&#10;add/delete person to/from room ui\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"add/delete room ui&#10;add/delete person to/from room ui\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/.idea/workspace.xml	(date 1691545495637)
+@@ -5,30 +5,32 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
++      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_7_2023_11_45_pm__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/Hostel.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/module-info.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31-Jul-23_8_15_PM__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Hostel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/HostelManagementSystem.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/NewHostel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/OldHostel.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Person.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Room.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/SingleRoom.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TripleRoom.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="CodeStyleSettingsInfer">
++    <option name="done" value="true" />
+   </component>
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+@@ -42,11 +44,11 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN"
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="GithubPullRequestsUISettings">
+     <option name="selectedUrlAndAccountId">
+       <UrlAndAccount>
+@@ -54,36 +56,43 @@
+         <option name="url" value="https://github.com/SimJiaYang/HostelManagementSystem.git" />
+       </UrlAndAccount>
+     </option>
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
+   </component>
+   <component name="ProblemsViewState">
+-    <option name="selectedTabId" value="ProjectErrors" />
++    <option name="selectedTabId" value="CurrentFile" />
++  </component>
++  <component name="ProjectCodeStyleSettingsMigration">
++    <option name="version" value="2" />
+   </component>
+   <component name="ProjectId" id="2SkqqVe0hnui93YvC94owLGQyXj" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++    <OptionsSetting value="false" id="Update" />
+     <ConfirmationsSetting value="1" id="Add" />
+   </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Downloads/mysql-connector-j-8.1.0/mysql-connector-j-8.1.0.jar&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "last_opened_file_path": "C:/Users/cjunj/Downloads/Hotel2021-main/Hotel2021-main",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "preferences.pluginManager"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\User\IdeaProjects\HostelManagementSystem\src\main\resources\images" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.TestingHostelManagementSystem">
++  <component name="RunManager" selected="Application.HostelManagementSystem">
+     <configuration name="HostelManagementSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.example.hostelmanagementsystem.HostelManagementSystem" />
+       <module name="HostelManagementSystem" />
+@@ -112,8 +121,8 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.HostelManagementSystem" />
+         <item itemvalue="Application.TestingHostelManagementSystem" />
+-        <item itemvalue="Application.HostelManagementSystem" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -149,6 +158,17 @@
+     </task>
+     <option name="localTasksCounter" value="4" />
+     <servers />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Initialize" />
+Index: .idea/dbnavigator.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DBNavigator.Project.DataEditorManager\">\r\n    <record-view-column-sorting-type value=\"BY_INDEX\" />\r\n    <value-preview-text-wrapping value=\"false\" />\r\n    <value-preview-pinned value=\"false\" />\r\n  </component>\r\n  <component name=\"DBNavigator.Project.DatabaseBrowserManager\">\r\n    <autoscroll-to-editor value=\"false\" />\r\n    <autoscroll-from-editor value=\"true\" />\r\n    <show-object-properties value=\"true\" />\r\n    <loaded-nodes />\r\n  </component>\r\n  <component name=\"DBNavigator.Project.DatabaseConsoleManager\">\r\n    <connection id=\"144b44b4-8fac-414d-93d7-1515995c3106\">\r\n      <console name=\"Connection\" type=\"STANDARD\" schema=\"mysql\" session=\"Main\" />\r\n    </connection>\r\n  </component>\r\n  <component name=\"DBNavigator.Project.DatabaseEditorStateManager\">\r\n    <last-used-providers />\r\n  </component>\r\n  <component name=\"DBNavigator.Project.DatabaseFileManager\">\r\n    <open-files />\r\n  </component>\r\n  <component name=\"DBNavigator.Project.ObjectQuickFilterManager\">\r\n    <last-used-operator value=\"EQUAL\" />\r\n    <filters />\r\n  </component>\r\n  <component name=\"DBNavigator.Project.Settings\">\r\n    <connections>\r\n      <connection id=\"144b44b4-8fac-414d-93d7-1515995c3106\" active=\"true\" signed=\"true\">\r\n        <database>\r\n          <name value=\"Connection\" />\r\n          <description value=\"\" />\r\n          <database-type value=\"MYSQL\" />\r\n          <config-type value=\"BASIC\" />\r\n          <database-version value=\"8.0\" />\r\n          <driver-source value=\"BUNDLED\" />\r\n          <driver-library value=\"\" />\r\n          <driver value=\"\" />\r\n          <url-type value=\"DATABASE\" />\r\n          <host value=\"localhost\" />\r\n          <port value=\"3306\" />\r\n          <database value=\"mysql\" />\r\n          <tns-folder value=\"\" />\r\n          <tns-profile value=\"\" />\r\n          <type value=\"USER_PASSWORD\" />\r\n          <user value=\"root\" />\r\n          <deprecated-pwd value=\"MTAxNw==\" />\r\n        </database>\r\n        <properties>\r\n          <auto-commit value=\"false\" />\r\n        </properties>\r\n        <ssh-settings>\r\n          <active value=\"false\" />\r\n          <proxy-host value=\"\" />\r\n          <proxy-port value=\"22\" />\r\n          <proxy-user value=\"\" />\r\n          <deprecated-proxy-pwd value=\"\" />\r\n          <auth-type value=\"PASSWORD\" />\r\n          <key-file value=\"\" />\r\n          <key-passphrase value=\"\" />\r\n        </ssh-settings>\r\n        <ssl-settings>\r\n          <active value=\"false\" />\r\n          <certificate-authority-file value=\"\" />\r\n          <client-certificate-file value=\"\" />\r\n          <client-key-file value=\"\" />\r\n        </ssl-settings>\r\n        <details>\r\n          <charset value=\"UTF-8\" />\r\n          <session-management value=\"true\" />\r\n          <ddl-file-binding value=\"true\" />\r\n          <database-logging value=\"true\" />\r\n          <connect-automatically value=\"true\" />\r\n          <restore-workspace value=\"true\" />\r\n          <restore-workspace-deep value=\"false\" />\r\n          <environment-type value=\"default\" />\r\n          <connectivity-timeout value=\"30\" />\r\n          <idle-time-to-disconnect value=\"30\" />\r\n          <idle-time-to-disconnect-pool value=\"5\" />\r\n          <credential-expiry-time value=\"10\" />\r\n          <max-connection-pool-size value=\"7\" />\r\n          <alternative-statement-delimiter value=\"\" />\r\n        </details>\r\n        <object-filters hide-empty-schemas=\"false\" hide-pseudo-columns=\"false\">\r\n          <object-type-filter>\r\n            <object-type name=\"SCHEMA\" enabled=\"true\" />\r\n            <object-type name=\"USER\" enabled=\"true\" />\r\n            <object-type name=\"ROLE\" enabled=\"true\" />\r\n            <object-type name=\"PRIVILEGE\" enabled=\"true\" />\r\n            <object-type name=\"CHARSET\" enabled=\"true\" />\r\n            <object-type name=\"TABLE\" enabled=\"true\" />\r\n            <object-type name=\"VIEW\" enabled=\"true\" />\r\n            <object-type name=\"MATERIALIZED_VIEW\" enabled=\"true\" />\r\n            <object-type name=\"NESTED_TABLE\" enabled=\"true\" />\r\n            <object-type name=\"COLUMN\" enabled=\"true\" />\r\n            <object-type name=\"INDEX\" enabled=\"true\" />\r\n            <object-type name=\"CONSTRAINT\" enabled=\"true\" />\r\n            <object-type name=\"DATASET_TRIGGER\" enabled=\"true\" />\r\n            <object-type name=\"DATABASE_TRIGGER\" enabled=\"true\" />\r\n            <object-type name=\"SYNONYM\" enabled=\"true\" />\r\n            <object-type name=\"SEQUENCE\" enabled=\"true\" />\r\n            <object-type name=\"PROCEDURE\" enabled=\"true\" />\r\n            <object-type name=\"FUNCTION\" enabled=\"true\" />\r\n            <object-type name=\"PACKAGE\" enabled=\"true\" />\r\n            <object-type name=\"TYPE\" enabled=\"true\" />\r\n            <object-type name=\"TYPE_ATTRIBUTE\" enabled=\"true\" />\r\n            <object-type name=\"ARGUMENT\" enabled=\"true\" />\r\n            <object-type name=\"DIMENSION\" enabled=\"true\" />\r\n            <object-type name=\"CLUSTER\" enabled=\"true\" />\r\n            <object-type name=\"DBLINK\" enabled=\"true\" />\r\n          </object-type-filter>\r\n          <object-name-filters />\r\n        </object-filters>\r\n      </connection>\r\n    </connections>\r\n    <browser-settings>\r\n      <general>\r\n        <display-mode value=\"TABBED\" />\r\n        <navigation-history-size value=\"100\" />\r\n        <show-object-details value=\"false\" />\r\n      </general>\r\n      <filters>\r\n        <object-type-filter>\r\n          <object-type name=\"SCHEMA\" enabled=\"true\" />\r\n          <object-type name=\"USER\" enabled=\"true\" />\r\n          <object-type name=\"ROLE\" enabled=\"true\" />\r\n          <object-type name=\"PRIVILEGE\" enabled=\"true\" />\r\n          <object-type name=\"CHARSET\" enabled=\"true\" />\r\n          <object-type name=\"TABLE\" enabled=\"true\" />\r\n          <object-type name=\"VIEW\" enabled=\"true\" />\r\n          <object-type name=\"MATERIALIZED_VIEW\" enabled=\"true\" />\r\n          <object-type name=\"NESTED_TABLE\" enabled=\"true\" />\r\n          <object-type name=\"COLUMN\" enabled=\"true\" />\r\n          <object-type name=\"INDEX\" enabled=\"true\" />\r\n          <object-type name=\"CONSTRAINT\" enabled=\"true\" />\r\n          <object-type name=\"DATASET_TRIGGER\" enabled=\"true\" />\r\n          <object-type name=\"DATABASE_TRIGGER\" enabled=\"true\" />\r\n          <object-type name=\"SYNONYM\" enabled=\"true\" />\r\n          <object-type name=\"SEQUENCE\" enabled=\"true\" />\r\n          <object-type name=\"PROCEDURE\" enabled=\"true\" />\r\n          <object-type name=\"FUNCTION\" enabled=\"true\" />\r\n          <object-type name=\"PACKAGE\" enabled=\"true\" />\r\n          <object-type name=\"TYPE\" enabled=\"true\" />\r\n          <object-type name=\"TYPE_ATTRIBUTE\" enabled=\"true\" />\r\n          <object-type name=\"ARGUMENT\" enabled=\"true\" />\r\n          <object-type name=\"DIMENSION\" enabled=\"true\" />\r\n          <object-type name=\"CLUSTER\" enabled=\"true\" />\r\n          <object-type name=\"DBLINK\" enabled=\"true\" />\r\n        </object-type-filter>\r\n      </filters>\r\n      <sorting>\r\n        <object-type name=\"COLUMN\" sorting-type=\"NAME\" />\r\n        <object-type name=\"FUNCTION\" sorting-type=\"NAME\" />\r\n        <object-type name=\"PROCEDURE\" sorting-type=\"NAME\" />\r\n        <object-type name=\"ARGUMENT\" sorting-type=\"POSITION\" />\r\n        <object-type name=\"TYPE ATTRIBUTE\" sorting-type=\"POSITION\" />\r\n      </sorting>\r\n      <default-editors>\r\n        <object-type name=\"VIEW\" editor-type=\"SELECTION\" />\r\n        <object-type name=\"PACKAGE\" editor-type=\"SELECTION\" />\r\n        <object-type name=\"TYPE\" editor-type=\"SELECTION\" />\r\n      </default-editors>\r\n    </browser-settings>\r\n    <navigation-settings>\r\n      <lookup-filters>\r\n        <lookup-objects>\r\n          <object-type name=\"SCHEMA\" enabled=\"true\" />\r\n          <object-type name=\"USER\" enabled=\"false\" />\r\n          <object-type name=\"ROLE\" enabled=\"false\" />\r\n          <object-type name=\"PRIVILEGE\" enabled=\"false\" />\r\n          <object-type name=\"CHARSET\" enabled=\"false\" />\r\n          <object-type name=\"TABLE\" enabled=\"true\" />\r\n          <object-type name=\"VIEW\" enabled=\"true\" />\r\n          <object-type name=\"MATERIALIZED VIEW\" enabled=\"true\" />\r\n          <object-type name=\"INDEX\" enabled=\"true\" />\r\n          <object-type name=\"CONSTRAINT\" enabled=\"true\" />\r\n          <object-type name=\"DATASET TRIGGER\" enabled=\"true\" />\r\n          <object-type name=\"DATABASE TRIGGER\" enabled=\"true\" />\r\n          <object-type name=\"SYNONYM\" enabled=\"false\" />\r\n          <object-type name=\"SEQUENCE\" enabled=\"true\" />\r\n          <object-type name=\"PROCEDURE\" enabled=\"true\" />\r\n          <object-type name=\"FUNCTION\" enabled=\"true\" />\r\n          <object-type name=\"PACKAGE\" enabled=\"true\" />\r\n          <object-type name=\"TYPE\" enabled=\"true\" />\r\n          <object-type name=\"DIMENSION\" enabled=\"false\" />\r\n          <object-type name=\"CLUSTER\" enabled=\"false\" />\r\n          <object-type name=\"DBLINK\" enabled=\"true\" />\r\n        </lookup-objects>\r\n        <force-database-load value=\"false\" />\r\n        <prompt-connection-selection value=\"true\" />\r\n        <prompt-schema-selection value=\"true\" />\r\n      </lookup-filters>\r\n    </navigation-settings>\r\n    <dataset-grid-settings>\r\n      <general>\r\n        <enable-zooming value=\"true\" />\r\n        <enable-column-tooltip value=\"true\" />\r\n      </general>\r\n      <sorting>\r\n        <nulls-first value=\"true\" />\r\n        <max-sorting-columns value=\"4\" />\r\n      </sorting>\r\n      <audit-columns>\r\n        <column-names value=\"\" />\r\n        <visible value=\"true\" />\r\n        <editable value=\"false\" />\r\n      </audit-columns>\r\n    </dataset-grid-settings>\r\n    <dataset-editor-settings>\r\n      <text-editor-popup>\r\n        <active value=\"false\" />\r\n        <active-if-empty value=\"false\" />\r\n        <data-length-threshold value=\"100\" />\r\n        <popup-delay value=\"1000\" />\r\n      </text-editor-popup>\r\n      <values-actions-popup>\r\n        <show-popup-button value=\"true\" />\r\n        <element-count-threshold value=\"1000\" />\r\n        <data-length-threshold value=\"250\" />\r\n      </values-actions-popup>\r\n      <general>\r\n        <fetch-block-size value=\"100\" />\r\n        <fetch-timeout value=\"30\" />\r\n        <trim-whitespaces value=\"true\" />\r\n        <convert-empty-strings-to-null value=\"true\" />\r\n        <select-content-on-cell-edit value=\"true\" />\r\n        <large-value-preview-active value=\"true\" />\r\n      </general>\r\n      <filters>\r\n        <prompt-filter-dialog value=\"true\" />\r\n        <default-filter-type value=\"BASIC\" />\r\n      </filters>\r\n      <qualified-text-editor text-length-threshold=\"300\">\r\n        <content-types>\r\n          <content-type name=\"Text\" enabled=\"true\" />\r\n          <content-type name=\"Properties\" enabled=\"true\" />\r\n          <content-type name=\"XML\" enabled=\"true\" />\r\n          <content-type name=\"DTD\" enabled=\"true\" />\r\n          <content-type name=\"HTML\" enabled=\"true\" />\r\n          <content-type name=\"XHTML\" enabled=\"true\" />\r\n          <content-type name=\"Java\" enabled=\"true\" />\r\n          <content-type name=\"SQL\" enabled=\"true\" />\r\n          <content-type name=\"PL/SQL\" enabled=\"true\" />\r\n          <content-type name=\"JSON\" enabled=\"true\" />\r\n          <content-type name=\"JSON5\" enabled=\"true\" />\r\n          <content-type name=\"Groovy\" enabled=\"true\" />\r\n          <content-type name=\"AIDL\" enabled=\"true\" />\r\n          <content-type name=\"YAML\" enabled=\"true\" />\r\n          <content-type name=\"Manifest\" enabled=\"true\" />\r\n        </content-types>\r\n      </qualified-text-editor>\r\n      <record-navigation>\r\n        <navigation-target value=\"VIEWER\" />\r\n      </record-navigation>\r\n    </dataset-editor-settings>\r\n    <code-editor-settings>\r\n      <general>\r\n        <show-object-navigation-gutter value=\"false\" />\r\n        <show-spec-declaration-navigation-gutter value=\"true\" />\r\n        <enable-spellchecking value=\"true\" />\r\n        <enable-reference-spellchecking value=\"false\" />\r\n      </general>\r\n      <confirmations>\r\n        <save-changes value=\"false\" />\r\n        <revert-changes value=\"true\" />\r\n      </confirmations>\r\n    </code-editor-settings>\r\n    <code-completion-settings>\r\n      <filters>\r\n        <basic-filter>\r\n          <filter-element type=\"RESERVED_WORD\" id=\"keyword\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"function\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"parameter\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"datatype\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"exception\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"schema\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"role\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"user\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"privilege\" selected=\"true\" />\r\n          <user-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"true\" />\r\n          </user-schema>\r\n          <public-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"false\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"false\" />\r\n          </public-schema>\r\n          <any-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"true\" />\r\n          </any-schema>\r\n        </basic-filter>\r\n        <extended-filter>\r\n          <filter-element type=\"RESERVED_WORD\" id=\"keyword\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"function\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"parameter\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"datatype\" selected=\"true\" />\r\n          <filter-element type=\"RESERVED_WORD\" id=\"exception\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"schema\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"user\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"role\" selected=\"true\" />\r\n          <filter-element type=\"OBJECT\" id=\"privilege\" selected=\"true\" />\r\n          <user-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"true\" />\r\n          </user-schema>\r\n          <public-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"true\" />\r\n          </public-schema>\r\n          <any-schema>\r\n            <filter-element type=\"OBJECT\" id=\"table\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"materialized view\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"index\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"constraint\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"trigger\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"synonym\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"sequence\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"procedure\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"function\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"package\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"type\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dimension\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"cluster\" selected=\"true\" />\r\n            <filter-element type=\"OBJECT\" id=\"dblink\" selected=\"true\" />\r\n          </any-schema>\r\n        </extended-filter>\r\n      </filters>\r\n      <sorting enabled=\"true\">\r\n        <sorting-element type=\"RESERVED_WORD\" id=\"keyword\" />\r\n        <sorting-element type=\"RESERVED_WORD\" id=\"datatype\" />\r\n        <sorting-element type=\"OBJECT\" id=\"column\" />\r\n        <sorting-element type=\"OBJECT\" id=\"table\" />\r\n        <sorting-element type=\"OBJECT\" id=\"view\" />\r\n        <sorting-element type=\"OBJECT\" id=\"materialized view\" />\r\n        <sorting-element type=\"OBJECT\" id=\"index\" />\r\n        <sorting-element type=\"OBJECT\" id=\"constraint\" />\r\n        <sorting-element type=\"OBJECT\" id=\"trigger\" />\r\n        <sorting-element type=\"OBJECT\" id=\"synonym\" />\r\n        <sorting-element type=\"OBJECT\" id=\"sequence\" />\r\n        <sorting-element type=\"OBJECT\" id=\"procedure\" />\r\n        <sorting-element type=\"OBJECT\" id=\"function\" />\r\n        <sorting-element type=\"OBJECT\" id=\"package\" />\r\n        <sorting-element type=\"OBJECT\" id=\"type\" />\r\n        <sorting-element type=\"OBJECT\" id=\"dimension\" />\r\n        <sorting-element type=\"OBJECT\" id=\"cluster\" />\r\n        <sorting-element type=\"OBJECT\" id=\"dblink\" />\r\n        <sorting-element type=\"OBJECT\" id=\"schema\" />\r\n        <sorting-element type=\"OBJECT\" id=\"role\" />\r\n        <sorting-element type=\"OBJECT\" id=\"user\" />\r\n        <sorting-element type=\"RESERVED_WORD\" id=\"function\" />\r\n        <sorting-element type=\"RESERVED_WORD\" id=\"parameter\" />\r\n      </sorting>\r\n      <format>\r\n        <enforce-code-style-case value=\"true\" />\r\n      </format>\r\n    </code-completion-settings>\r\n    <execution-engine-settings>\r\n      <statement-execution>\r\n        <fetch-block-size value=\"100\" />\r\n        <execution-timeout value=\"20\" />\r\n        <debug-execution-timeout value=\"600\" />\r\n        <focus-result value=\"false\" />\r\n        <prompt-execution value=\"false\" />\r\n      </statement-execution>\r\n      <script-execution>\r\n        <command-line-interfaces />\r\n        <execution-timeout value=\"300\" />\r\n      </script-execution>\r\n      <method-execution>\r\n        <execution-timeout value=\"30\" />\r\n        <debug-execution-timeout value=\"600\" />\r\n        <parameter-history-size value=\"10\" />\r\n      </method-execution>\r\n    </execution-engine-settings>\r\n    <operation-settings>\r\n      <transactions>\r\n        <uncommitted-changes>\r\n          <on-project-close value=\"ASK\" />\r\n          <on-disconnect value=\"ASK\" />\r\n          <on-autocommit-toggle value=\"ASK\" />\r\n        </uncommitted-changes>\r\n        <multiple-uncommitted-changes>\r\n          <on-commit value=\"ASK\" />\r\n          <on-rollback value=\"ASK\" />\r\n        </multiple-uncommitted-changes>\r\n      </transactions>\r\n      <session-browser>\r\n        <disconnect-session value=\"ASK\" />\r\n        <kill-session value=\"ASK\" />\r\n        <reload-on-filter-change value=\"false\" />\r\n      </session-browser>\r\n      <compiler>\r\n        <compile-type value=\"KEEP\" />\r\n        <compile-dependencies value=\"ASK\" />\r\n        <always-show-controls value=\"false\" />\r\n      </compiler>\r\n      <debugger>\r\n        <debugger-type value=\"ASK\" />\r\n        <use-generic-runners value=\"true\" />\r\n      </debugger>\r\n    </operation-settings>\r\n    <ddl-file-settings>\r\n      <extensions>\r\n        <mapping file-type-id=\"VIEW\" extensions=\"vw\" />\r\n        <mapping file-type-id=\"TRIGGER\" extensions=\"trg\" />\r\n        <mapping file-type-id=\"PROCEDURE\" extensions=\"prc\" />\r\n        <mapping file-type-id=\"FUNCTION\" extensions=\"fnc\" />\r\n        <mapping file-type-id=\"PACKAGE\" extensions=\"pkg\" />\r\n        <mapping file-type-id=\"PACKAGE_SPEC\" extensions=\"pks\" />\r\n        <mapping file-type-id=\"PACKAGE_BODY\" extensions=\"pkb\" />\r\n        <mapping file-type-id=\"TYPE\" extensions=\"tpe\" />\r\n        <mapping file-type-id=\"TYPE_SPEC\" extensions=\"tps\" />\r\n        <mapping file-type-id=\"TYPE_BODY\" extensions=\"tpb\" />\r\n      </extensions>\r\n      <general>\r\n        <lookup-ddl-files value=\"true\" />\r\n        <create-ddl-files value=\"false\" />\r\n        <synchronize-ddl-files value=\"true\" />\r\n        <use-qualified-names value=\"false\" />\r\n        <make-scripts-rerunnable value=\"true\" />\r\n      </general>\r\n    </ddl-file-settings>\r\n    <general-settings>\r\n      <regional-settings>\r\n        <date-format value=\"MEDIUM\" />\r\n        <number-format value=\"UNGROUPED\" />\r\n        <locale value=\"SYSTEM_DEFAULT\" />\r\n        <use-custom-formats value=\"false\" />\r\n      </regional-settings>\r\n      <environment>\r\n        <environment-types>\r\n          <environment-type id=\"development\" name=\"Development\" description=\"Development environment\" color=\"-2430209/-12296320\" readonly-code=\"false\" readonly-data=\"false\" />\r\n          <environment-type id=\"integration\" name=\"Integration\" description=\"Integration environment\" color=\"-2621494/-12163514\" readonly-code=\"true\" readonly-data=\"false\" />\r\n          <environment-type id=\"production\" name=\"Production\" description=\"Productive environment\" color=\"-11574/-10271420\" readonly-code=\"true\" readonly-data=\"true\" />\r\n          <environment-type id=\"other\" name=\"Other\" description=\"\" color=\"-1576/-10724543\" readonly-code=\"false\" readonly-data=\"false\" />\r\n        </environment-types>\r\n        <visibility-settings>\r\n          <connection-tabs value=\"true\" />\r\n          <dialog-headers value=\"true\" />\r\n          <object-editor-tabs value=\"true\" />\r\n          <script-editor-tabs value=\"false\" />\r\n          <execution-result-tabs value=\"true\" />\r\n        </visibility-settings>\r\n      </environment>\r\n    </general-settings>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dbnavigator.xml b/.idea/dbnavigator.xml
+--- a/.idea/dbnavigator.xml	(revision d4464e8c693b7d91a0255c5ee3e71236772593a2)
++++ b/.idea/dbnavigator.xml	(date 1691431458744)
+@@ -22,6 +22,9 @@
+   <component name="DBNavigator.Project.DatabaseFileManager">
+     <open-files />
+   </component>
++  <component name="DBNavigator.Project.DatasetFilterManager">
++    <filter-actions connection-id="144b44b4-8fac-414d-93d7-1515995c3106" dataset="oopgp.lecturer" active-filter-id="" />
++  </component>
+   <component name="DBNavigator.Project.ObjectQuickFilterManager">
+     <last-used-operator value="EQUAL" />
+     <filters />
+@@ -34,7 +37,7 @@
+           <description value="" />
+           <database-type value="MYSQL" />
+           <config-type value="BASIC" />
+-          <database-version value="8.0" />
++          <database-version value="5.5" />
+           <driver-source value="BUNDLED" />
+           <driver-library value="" />
+           <driver value="" />
+@@ -44,9 +47,9 @@
+           <database value="mysql" />
+           <tns-folder value="" />
+           <tns-profile value="" />
+-          <type value="USER_PASSWORD" />
++          <type value="USER" />
+           <user value="root" />
+-          <deprecated-pwd value="MTAxNw==" />
++          <deprecated-pwd value="" />
+         </database>
+         <properties>
+           <auto-commit value="false" />
+@@ -513,4 +516,7 @@
+       </environment>
+     </general-settings>
+   </component>
++  <component name="DBNavigator.Project.StatementExecutionManager">
++    <execution-variables />
++  </component>
+ </project>
+\ No newline at end of file

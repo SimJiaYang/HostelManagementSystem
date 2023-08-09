@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 
 public class dbConnect {
     static PreparedStatement preparedStatement;
-    Statement statement;
+    static Statement statement;
     static ResultSet result;
     static Connection con;
 
@@ -18,9 +18,9 @@ public class dbConnect {
     public String initializeDB(){
         String output = "";
 
-        String dbURL = "jdbc:mysql://localhost:3306/oopgroup";
+        String dbURL = "jdbc:mysql://localhost:3306/oop_group";
         String username = "root";
-        String password = "Kellybe0115";
+        String password = "1017";
         try {
             con = DriverManager.getConnection(dbURL, username, password);
             if (con != null) {
@@ -31,45 +31,62 @@ public class dbConnect {
         }
         return output;
     }
-    public static String addUser(Person newPerson){
-        String output = "";
 
-        String id = newPerson.getId();
-        String roomNumber = newPerson.getRoomNumber();
+    public static String showHostel(int hostelID){
+        String output = "";
+        try{
+                String sql ="SELECT room.id FROM room LEFT JOIN roomtype ON room.typeid = roomtype.id WHERE roomtype.hostelID = ?";
+                preparedStatement = con.prepareStatement(sql);
+                preparedStatement.setInt(1, hostelID);
+
+                result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String roomID = result.getString("id");
+                output += roomID + " ";
+            }
+        }catch(SQLException e){
+            output = "Fail to find the hostel";
+        }
+        return output;
+    }
+
+    // set person rooms
+    public static String addUser(String roomNumber,String personID){
+        String output = "";
+        String id = personID;
 
         try{
-            if(findID(id) == true) {
-                String sql ="UPDATE person SET roomNumber=? WHERE id=?";
+            if(findID(id)) {
+                String sql ="UPDATE person SET room_number=?,isLiveHostel=? WHERE id=?";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, roomNumber);
-                preparedStatement.setString(2, id);
+                preparedStatement.setString(2, "1");
+                preparedStatement.setString(3, id);
 
                 int rows = preparedStatement.executeUpdate();
-
                 if (rows > 0) {
                     output = "A new room has been assigned successfully";
                 }
             }
             else showError("Error","The person doesn't exist");
         }catch(SQLException e){
-            output = "Fail to add person, Please try again";
+            output = "Fail to add person to room, Please try again";
         }
-
-
         return output;
     }
 
     //delete room from person
-    public static String delete(Person newPerson){
+    public static String delete(String personID){
         String output = "";
-        String id = newPerson.getId();
+        String id = personID;
 
         try{
-            if(findID(id) == true) {
-                String sql ="UPDATE person SET roomNumber=? WHERE id=?";
+            if(findID(id)) {
+                String sql ="UPDATE person SET room_number=?,isLiveHostel=? WHERE id=?";
                 preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setString(1,"-");
-                preparedStatement.setString(2,id);
+                preparedStatement.setString(1,null);
+                preparedStatement.setString(2,"0");
+                preparedStatement.setString(3,id);
 
                 int rows = preparedStatement.executeUpdate();
                 if(rows>0){
@@ -87,18 +104,18 @@ public class dbConnect {
     }
 
     //add new room
-    public String addUser(Room newRoom){
+    public String addRoom(String roomID, String roomType){
         String output = "";
-        String id = newRoom.getRoomNumber();
-        double price= newRoom.getRoomPrice();
-        if(findRoomID(id) == true){
+        String id = roomID;
+
+        if(findRoomID(id)){
             showError("Error","The room already exist");
         }else{
             try{
-                String sql ="INSERT INTO room(id,price) VALUES(?,?)";
+                String sql ="INSERT INTO room(id,typeID) VALUES(?,?)";
                 preparedStatement  = con.prepareStatement(sql);
                 preparedStatement.setString(1,id);
-                preparedStatement.setString(2, String.valueOf(price));
+                preparedStatement.setString(2,roomType);
                 int rows = preparedStatement.executeUpdate();
 
                 if(rows>0){
@@ -111,12 +128,12 @@ public class dbConnect {
         return output;
     }
 
-    //delete room from person
-    public String delete(Room newRoom){
+    //delete room
+    public String deleteRoom(String roomID){
         String output = "";
-        String id = newRoom.getRoomNumber();
+        String id = roomID;
         try{
-            if(findRoomID(id) == true) {
+            if(findRoomID(id)) {
                 String sql ="DELETE FROM room WHERE id=?";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1,id);

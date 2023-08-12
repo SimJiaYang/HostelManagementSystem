@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FDF2E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hostelmanagementsystem.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FDF2E9;"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hostelmanagementsystem.MainController">
     <top>
-        <TabPane prefHeight="404.0" prefWidth="600.0" style="-fx-background-color: FAE5D3;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-            <tabs>
-                <Tab text="Add Room">
-                    <fx:include source="addRoom.fxml" />
-                </Tab>
-                <Tab text="Delete Room">
-                    <fx:include source="deleteRoom.fxml" />
-                </Tab>
-                <Tab text="Add Person to Room">
-                    <fx:include source="addPersonToRoom.fxml" />
-                </Tab>
-                <Tab text="Delete Person from Room">
-                    <fx:include source="deletePersonFromRoom.fxml" />
-                </Tab>
-                <Tab text="Log Out">
-                    <fx:include source="logout.fxml" />
-                </Tab>
-            </tabs>
-        </TabPane>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu text="Room">
+                    <items>
+                        <MenuItem text="Add Room" onAction="#loadAddRoom" />
+                        <MenuItem text="Delete Room" onAction="#loadDeleteRoom" />
+                    </items>
+                </Menu>
+                <Menu text="Person">
+                    <items>
+                        <MenuItem text="Add Person to Room" onAction="#loadAddPersonToRoom" />
+                        <MenuItem text="Delete Person From Room" onAction="#loadDeletePersonFromRoom" />
+                    </items>
+                </Menu>
+                <Menu text="Price">
+                    <items>
+                        <MenuItem text="Update Price" onAction="#loadUpdatePrice" />
+                    </items>
+                </Menu>
+                <Menu text="View">
+                    <items>
+                        <MenuItem text="View Person in Room" onAction="#loadViewPersonInRoom" />
+                        <MenuItem text="View Person's Room" onAction="#loadViewPersonRoom" />
+                    </items>
+                </Menu>
+                <Menu text="Log Out">
+                    <items>
+                        <MenuItem text="Log Out" onAction="#loadLogOut" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
     </top>
+    <center>
+        <!-- Placeholder to load page content -->
+        <Pane fx:id="contentPane" />
+    </center>
 </BorderPane>

@@ -17,6 +17,9 @@ public class TestingHostelManagementSystem {
         System.out.println("Add user to room");
         System.out.println("Delete user from room");
 
+        System.out.println("hello world");
+
+
 //        newHostel();
 //        oldHostel();
 //        registerPerson();

@@ -20,6 +20,7 @@ public class LoginController {
 
     private void checkLogin() throws IOException {
         HostelManagementSystem m = new HostelManagementSystem();
+
         if (username.getText().toString().equals("admin") && password.getText().toString().equals("1234")){
             wrongLogIn.setText("Success!");
             m.changeScene("main.fxml");

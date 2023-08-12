@@ -1,15 +1,24 @@
 package com.example.hostelmanagementsystem;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.*;
 import javafx.scene.input.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class AddRoomController {
 
+    @FXML
+    private ComboBox<String> hostel;
+    @FXML
+    private TextArea room;
     @FXML
     private RadioButton newHostel;
     @FXML
@@ -21,28 +30,51 @@ public class AddRoomController {
     @FXML
     private TextField roomNumber;
     @FXML
-    private TextField roomPrice;
-    @FXML
     private Label wrongAddRoom;
-    @FXML
-    private Button addRoom;
-    @FXML
-    private Button clear;
 
-    public void addRoom(ActionEvent event) throws Exception{
-        checkAddRoom();
+    public void initialize() {
+        hostel.getItems().addAll("Old Hostel", "New Hostel", "All Hostels");
+        room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
     }
 
-    private void checkAddRoom() throws IOException {
+    public void displayRoom(){
+        if(hostel.getValue().equals("Old Hostel")){
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1));
+        } else if (hostel.getValue().equals("New Hostel")){
+            room.setText("------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+        } else if (hostel.getValue().equals("All Hostels")){
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+        }
+    }
+
+    public void addRoom(ActionEvent event) throws Exception{
+        int selectedRoomTypeID = 0; 
+        String enteredRoomID = "";
+
+        if(oldHostel.isSelected()){
+            if(singleRoom.isSelected()) {
+                selectedRoomTypeID = 1;
+            } else if (tripleRoom.isSelected()) {
+                selectedRoomTypeID = 3;
+            }
+        }else if(newHostel.isSelected()){
+            if(singleRoom.isSelected()) {
+                selectedRoomTypeID = 2;
+            } else if (tripleRoom.isSelected()) {
+                selectedRoomTypeID = 4;
+            }
+        }
+        enteredRoomID = roomNumber.getText().toUpperCase(Locale.ROOT);
+
+        //Check Add Room
         wrongAddRoom.setTextFill(Color.RED);
         if (roomNumber.getText().toString().equals("")){
             wrongAddRoom.setText("Please enter room number!");
-        }
-        else if (roomPrice.getText().toString().equals("")){
-            wrongAddRoom.setText("Please enter room price!");
-        }else {
-            wrongAddRoom.setText("Successfully add the room!");
+        } else {
+            String result = dbConnect.addRoom(selectedRoomTypeID, enteredRoomID);
+            wrongAddRoom.setText(result);
             wrongAddRoom.setTextFill(Color.GREEN);
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
         }
 
     }
@@ -51,11 +83,11 @@ public class AddRoomController {
         newHostel.setSelected(true);
         singleRoom.setSelected(true);
         roomNumber.clear();
-        roomPrice.clear();
         wrongAddRoom.setText("");
     }
 
 
+    /*
     @FXML
     private void handleOnKeyPressed(KeyEvent event)
     {
@@ -76,6 +108,6 @@ public class AddRoomController {
         alert.setContentText(msg);
         alert.show();
     }
-
+    */
 
 }

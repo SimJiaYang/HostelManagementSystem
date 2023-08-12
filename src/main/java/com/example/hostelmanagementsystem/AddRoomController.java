@@ -1,16 +1,10 @@
 package com.example.hostelmanagementsystem;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.*;
-import javafx.scene.input.*;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 public class AddRoomController {
@@ -85,29 +79,5 @@ public class AddRoomController {
         roomNumber.clear();
         wrongAddRoom.setText("");
     }
-
-
-    /*
-    @FXML
-    private void handleOnKeyPressed(KeyEvent event)
-    {
-        if((!(event.getCode().isDigitKey()) &&
-            !((event.getCode()== KeyCode.LEFT)) &&
-            !((event.getCode() == KeyCode.RIGHT)) &&
-            !((event.getCode() == KeyCode.PERIOD)) &&
-            !((event.getCode() == KeyCode.BACK_SPACE)) &&
-            !((event.getCode() == KeyCode.ENTER)))) {
-            showError("Input Error", "Enter the price only in digit");
-        }
-    }
-
-    public void showError(String title, String msg){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.show();
-    }
-    */
 
 }

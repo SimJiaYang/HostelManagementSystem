@@ -4,26 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="Add hostel and person file">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07-Aug-23_5_26_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07-Aug-23_5_26_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09-Aug-23_10_15_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09-Aug-23_10_15_AM__Changes_.xml" afterDir="false" />
+    <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="UI connected database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeleteRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeleteRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/TestingHostelManagementSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbConnect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/addPersonToRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/addPersonToRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/addRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/addRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/deletePersonFromRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/deletePersonFromRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/deleteRoom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/deleteRoom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/hostelmanagementsystem/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Hostel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +131,21 @@
       <option name="project" value="LOCAL" />
       <updated>1690815607982</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="UI connected database">
+      <created>1691826523733</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1691826523733</updated>
+    </task>
+    <task id="LOCAL-00005" summary="UI connected database">
+      <created>1691826551960</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691826551960</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -165,6 +163,7 @@
     <MESSAGE value="Initialize" />
     <MESSAGE value="Add hostel and person file" />
     <MESSAGE value="add/delete room ui&#10;add/delete person to/from room ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="add/delete room ui&#10;add/delete person to/from room ui" />
+    <MESSAGE value="UI connected database" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI connected database" />
   </component>
 </project>

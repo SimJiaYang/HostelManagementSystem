@@ -1,8 +1,6 @@
 package com.example.hostelmanagementsystem;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.scene.control.Alert;
 
@@ -338,31 +336,6 @@ public class dbConnect {
             e.printStackTrace();
         }
         return isLiveHostel;
-    }
-
-    // set person rooms
-    public static String addUser(String roomNumber,String personID){
-        String output = "";
-        String id = personID;
-
-        try{
-            if(findID(id)) {
-                String sql ="UPDATE person SET room_number=?,isLiveHostel=? WHERE id=?";
-                preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setString(1, roomNumber);
-                preparedStatement.setString(2, "1");
-                preparedStatement.setString(3, id);
-
-                int rows = preparedStatement.executeUpdate();
-                if (rows > 0) {
-                    output = "A new room has been assigned successfully";
-                }
-            }
-            else showError("Error","The person doesn't exist");
-        }catch(SQLException e){
-            output = "Fail to add person to room, Please try again";
-        }
-        return output;
     }
 
     //search person data

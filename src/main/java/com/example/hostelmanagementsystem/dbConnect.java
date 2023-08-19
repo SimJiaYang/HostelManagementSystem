@@ -10,16 +10,22 @@ public class dbConnect {
     static ResultSet result;
     static Connection con;
 
+    /**
+     * Empty constructor for database connection
+     */
     public dbConnect(){
 
     }
 
+    /**
+     * @return The connection status to database
+     */
     public String initializeDB(){
         String output = "";
 
         String dbURL = "jdbc:mysql://localhost:3306/oop_group";
         String username = "root";
-        String password = "2002";
+        String password = "1017";
         try {
             con = DriverManager.getConnection(dbURL, username, password);
             if (con != null) {
@@ -31,6 +37,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param hostelID - Hostel ID
+     * @return Available room for the hostel
+     */
     public static String showHostel(int hostelID){
         String output = "";
         try{
@@ -49,6 +59,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param hostelID - Hostel ID
+     * @return Available hostel room
+     */
     public static String showAvailableHostel(int hostelID){
         String output = "";
         try{
@@ -67,6 +81,11 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param roomTypeID - The type of the room
+     * @param roomID - The ID of the room
+     * @return The status for adding the room
+     */
     public static String addRoom(int roomTypeID, String roomID) {
         String output = "";
         String id = roomID;
@@ -94,6 +113,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param roomID - The ID of the room
+     * @return The status of delete the room
+     */
     public static String deleteRoom(String roomID){
         String output = "";
         int numberPersonLived = 0;
@@ -124,6 +147,11 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param roomID - Room ID
+     * @param personID - Person ID
+     * @return The status for adding the person to the room
+     */
     public static String addPersonToRoom(String roomID,String personID){
         String output = "";
 
@@ -158,8 +186,10 @@ public class dbConnect {
         return output;
     }
 
-    //haven't done yet
-    //delete room from person
+    /**
+     * @param personID - Person ID
+     * @return The status delete the person from the room
+     */
     public static String deletePersonFromRoom(String personID){
         String output = "";
         String roomID = "";
@@ -191,6 +221,11 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param price - Room price
+     * @param roomTypeID - Room type ID
+     * @return The status to update the room price
+     */
     public static String updateRoomPrice(double price, int roomTypeID){
         String output = "";
         String id = String.valueOf(roomTypeID);
@@ -229,6 +264,10 @@ public class dbConnect {
     }
     */
 
+    /**
+     * @param roomID - Room ID
+     * @return The person lived in this room
+     */
     public static String getRoomLivedByWho(String roomID){
         String output = "";
         int count = 0;
@@ -260,6 +299,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param personID - Person ID
+     * @return Either this person live hostel or not
+     */
     public static String getPersonRoom(String personID) {
         String output = "";
 
@@ -284,6 +327,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param roomID - Room ID
+     * @return The person who live in this room
+     */
     public static String getNumberPersonLived(String roomID){
         String output = "";
         int count = 0;
@@ -304,6 +351,10 @@ public class dbConnect {
         return output;
     }
 
+    /**
+     * @param personID - Person ID
+     * @return The room number for the person lived
+     */
     public static String getPersonRoomNumber(String personID) {
         String roomNumber = null;
         try {
@@ -320,6 +371,10 @@ public class dbConnect {
         return roomNumber;
     }
 
+    /**
+     * @param id - Person ID
+     * @return Either this person live in hostel or not
+     */
     public static boolean isLiveHostel(String id) {
         boolean isLiveHostel = false;
         try {
@@ -338,7 +393,10 @@ public class dbConnect {
         return isLiveHostel;
     }
 
-    //search person data
+    /**
+     * @param id - Person ID
+     * @return Either exist this person or not
+     */
     public static boolean findID(String id){
         boolean gotIt= false;
         try{
@@ -353,7 +411,10 @@ public class dbConnect {
         return gotIt;
     }
 
-    //search room data
+    /**
+     * @param id - Room ID
+     * @return Either exist this room or not
+     */
     public static boolean findRoomID(String id){
         boolean gotIt= false;
         try{
@@ -368,6 +429,10 @@ public class dbConnect {
         return gotIt;
     }
 
+    /**
+     * @param roomID
+     * @return The type of the room
+     */
     public static int getRoomTypeId(String roomID) {
         int roomTypeId = -1;
 
@@ -387,6 +452,10 @@ public class dbConnect {
         return roomTypeId;
     }
 
+    /**
+     * @param roomID - Room ID
+     * @return The capacity of the room
+     */
     public static int getRoomStorage(String roomID) {
         int roomType;
         int roomStorage = 0;
@@ -400,12 +469,19 @@ public class dbConnect {
         return roomStorage;
     }
 
+    /**
+     * @param roomID - Room ID
+     * @return The availability of the room
+     */
     public static int getRoomAvailability(String roomID) {
         int roomAvailability = 0;
         roomAvailability = getRoomStorage(roomID)- Integer.parseInt(getNumberPersonLived(roomID));
         return roomAvailability;
     }
 
+    /**
+     * @param roomID - Room ID
+     */
     public static void setRoomStatus(String roomID) {
         int status = 1;
 
@@ -427,6 +503,10 @@ public class dbConnect {
         }
     }
 
+    /**
+     * @param roomID - Room ID
+     * @return True if room is available
+     */
     public static boolean checkRoomAvailability(String roomID) {
         boolean isAvailable = false;
         try {
@@ -445,7 +525,10 @@ public class dbConnect {
         return isAvailable;
     }
 
-    //--------Display error message------------//
+    /**
+     * @param title - Error message title
+     * @param msg - Error message content
+     */
     public static void showError(String title, String msg){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -454,7 +537,10 @@ public class dbConnect {
         alert.showAndWait();
     }
 
-    //--------Display Message------------//
+    /**
+     * @param title - Information title
+     * @param msg - Information content
+     */
     public void showInfo(String title, String msg){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

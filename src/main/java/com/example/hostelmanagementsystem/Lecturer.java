@@ -7,12 +7,26 @@ public class Lecturer extends Person implements Price {
     private String lecturerEmail;
     private String position;
 
-    // Empty constructor
+    /**
+     * Empty Constructor for Lecturer
+     */
     protected Lecturer() {
         this("unknown","unknown", "unknown","unknown","unknown",
                 "unknown", "unknown", "unknown", 0);
     }
 
+
+    /**
+     * @param id - Lecturer ID
+     * @param name - Lecturer name
+     * @param gender  - Lecturer gender
+     * @param address  - Lecturer address
+     * @param phoneNumber  - Lecturer phone
+     * @param emergencyContact  - Lecturer contact
+     * @param roomNumber  - Lecturer room number
+     * @param lecturerEmail  - lecturer email
+     * @param positionNumber  - lecturer position
+     */
     protected Lecturer(
             String id,String name, String gender, String address, String phoneNumber, String emergencyContact,String roomNumber,
             String lecturerEmail, int positionNumber) {
@@ -21,19 +35,33 @@ public class Lecturer extends Person implements Price {
         this.position = validatePosition(positionNumber);
     }
 
+    /**
+     * @param lecturerEmail - Set Lecturer Email
+     */
     public void setLecturerEmail(String lecturerEmail) {
         this.lecturerEmail = lecturerEmail;
     }
 
+
+    /**
+     * @return Lecturer email
+     */
     public String getLecturerEmail() {
         return lecturerEmail;
     }
 
+    /**
+     * @return Lecturer position
+     */
     public String getPosition() {
         return position;
     }
 
-    // Get lecturer position
+
+    /**
+     * @param position - Get lecturer position number
+     * @return Lecturer position
+     */
     public String validatePosition(int position) {
         String positionDetail = "";
         if (position == 1) {
@@ -46,7 +74,11 @@ public class Lecturer extends Person implements Price {
         return positionDetail;
     }
 
-    // Get total price for lecturer
+    /**
+     * @param duration - Duration for semester
+     * @param room - Room object in order to get room price
+     * @return Room price after discount
+     */
     @Override
     public double getTotalPrice(int duration, Room room) {
         boolean isLive = super.isLiveHostel();
@@ -67,6 +99,9 @@ public class Lecturer extends Person implements Price {
         return getRoomPrice;
     }
 
+    /**
+     * @return Lecturer basic information
+     */
     @Override
     public String toString() {
         return super.toString() +

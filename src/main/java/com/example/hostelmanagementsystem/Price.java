@@ -2,8 +2,10 @@ package com.example.hostelmanagementsystem;
 
 public interface Price {
 
-    // Long semester = 14 weeks
-    // Short semester = 7 weeks
-    // Implement in student and lecturer class
+    /**
+     * @param duration - Long or short semester
+     * @param room - Room type
+     * @return Total price
+     */
     public abstract double getTotalPrice(int duration,Room room);
 }

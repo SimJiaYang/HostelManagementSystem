@@ -25,32 +25,58 @@ public class ViewPersonInRoomController {
 
     public void initialize() {
         hostel.getItems().addAll("Old Hostel", "New Hostel", "All Hostels");
-        room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+        room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                + dbManagement.oldHostel.toString()  +
+                "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                + dbManagement.newHostel.toString());
     }
 
     public void displayRoom(){
         if(hostel.getValue().equals("Old Hostel")){
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.oldHostel.toString());
         } else if (hostel.getValue().equals("New Hostel")){
-            room.setText("------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+            room.setText("------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.newHostel.toString());
         } else if (hostel.getValue().equals("All Hostels")){
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.oldHostel.toString()  +
+                    "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.newHostel.toString());
         }
     }
 
     public void viewPersonInRoom(ActionEvent event) throws Exception{
         String enteredRoomID = "";
         enteredRoomID = roomNumber.getText().toUpperCase(Locale.ROOT);
+        String result = "";
 
         //Check View Person In Room
         wrongView.setTextFill(Color.RED);
         if (roomNumber.getText().toString().equals("")){
             wrongView.setText("Please enter room number!");
         } else {
-            String result = dbManagement.getRoomLivedByWho(enteredRoomID);
+            boolean isSuccess = false;
+            for(int i = 0; i < dbManagement.personList.size(); i++) {
+                if(dbManagement.personList.get(i).getRoom()==null){
+                    // Continue cannot delete
+                    continue;
+                }
+                else if(dbManagement.personList.get(i).getRoom().equals(enteredRoomID)){
+                    isSuccess = true;
+                    result = dbManagement.personList.get(i).getId();
+                    break;
+                }else{
+                    result = "Failed to find the person in the room";
+                }
+            }
+
             personID.setText(result);
             wrongView.setTextFill(Color.GREEN);
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.oldHostel.toString()  +
+                    "\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.newHostel.toString());
         }
     }
 

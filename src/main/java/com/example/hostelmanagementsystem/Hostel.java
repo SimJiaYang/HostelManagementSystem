@@ -148,6 +148,23 @@ public abstract class Hostel{
     }
 
     /**
+     * Show all the single room in the hostel
+     * @return single room list
+     */
+    public ArrayList<Room> getSingleRoomList() {
+        return singleRoom;
+    }
+
+    /**
+     * Show all the triple room in the hostel
+     * @return triple room list
+     */
+    public ArrayList<Room> getTripleRoomList() {
+        return tripleRoom;
+    }
+
+
+    /**
      * Show the information about the hostel
      * @return Hostel information
      */

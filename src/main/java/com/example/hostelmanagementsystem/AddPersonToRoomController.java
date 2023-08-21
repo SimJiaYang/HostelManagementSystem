@@ -39,40 +39,37 @@ public class AddPersonToRoomController {
         }
     }
 
-    public void addPersonToRoom(ActionEvent event) throws Exception{
+
+    public void addPersonToRoom(ActionEvent event) throws Exception {
         String enteredRoomID = "";
         String enteredPersonID = "";
+        String result = "";
 
         enteredRoomID = roomNumber.getText().toUpperCase();
         enteredPersonID = personID.getText().toUpperCase();
 
         wrongAddPersonToRoom.setTextFill(Color.RED);
-        if (roomNumber.getText().toString().equals("")){
+
+        if (roomNumber.getText().toString().equals("")) {
             wrongAddPersonToRoom.setText("Please enter room number!");
-        }
-        else if (personID.getText().toString().equals("")){
+        } else if (personID.getText().toString().equals("")) {
             wrongAddPersonToRoom.setText("Please enter student / lecturer id!");
-        }else {
-            String result = dbManagement.addPersonToRoom(enteredRoomID,enteredPersonID);
-            wrongAddPersonToRoom.setText(result);
-            wrongAddPersonToRoom.setTextFill(Color.GREEN);
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(2));
+        } else {
+            result = dbManagement.addPersonToRoom(enteredRoomID, enteredPersonID);
+            if (result.equals("A new room has been assigned successfully")) {
+                for (int i = 0; i < dbManagement.personList.size(); i++) {
+                    if (dbManagement.personList.get(i).getId().equals(enteredPersonID)) {
+                        dbManagement.personList.get(i).setRoom(enteredRoomID);
+                    }
+                }
+                wrongAddPersonToRoom.setText(result);
+                wrongAddPersonToRoom.setTextFill(Color.GREEN);
+                room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" +
+                        dbManagement.showAvailableHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(2));
+            }
         }
     }
 
-    private void checkAddPersonToRoom() throws IOException {
-        wrongAddPersonToRoom.setTextFill(Color.RED);
-        if (roomNumber.getText().toString().equals("")){
-            wrongAddPersonToRoom.setText("Please enter room number!");
-        }
-        else if (personID.getText().toString().equals("")){
-            wrongAddPersonToRoom.setText("Please enter student / lecturer id!");
-        }else {
-            wrongAddPersonToRoom.setText("Successfully add the student / lecturer to room!");
-            wrongAddPersonToRoom.setTextFill(Color.GREEN);
-        }
-
-    }
     public void clear(ActionEvent event) throws Exception{
         roomNumber.clear();
         personID.clear();

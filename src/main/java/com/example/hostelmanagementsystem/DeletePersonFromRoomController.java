@@ -43,6 +43,13 @@ public class DeletePersonFromRoomController {
         }
         else {
             String result = dbManagement.deletePersonFromRoom(id);
+            if(result.equals("The room has been removed from the person")){
+                for (int i = 0; i < dbManagement.personList.size(); i++) {
+                    if (dbManagement.personList.get(i).getId().equals(id)) {
+                        dbManagement.personList.get(i).removeRoomNumber();
+                    }
+                }
+            }
             wrongDeletePersonFromRoom.setText(result);
             wrongDeletePersonFromRoom.setTextFill(Color.GREEN);
             room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(2));

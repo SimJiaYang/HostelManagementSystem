@@ -218,7 +218,8 @@ public class dbManagement {
 
         if(findRoomID(id)){
             showError("Error","The room already exist");
-        }else{
+        }
+        else{
             try {
                 String insertSQL = "INSERT INTO room (id, typeid, status) VALUES (?, ?, ?)";
                 preparedStatement = con.prepareStatement(insertSQL);
@@ -375,89 +376,6 @@ public class dbManagement {
         return output;
     }
 
-    /*
-    public static List<String> getRoomPrice() {
-        List<String> roomPrice = new ArrayList<>();
-        try {
-            String sql ="SELECT price FROM roomtype";
-            preparedStatement = con.prepareStatement(sql);
-            result = preparedStatement.executeQuery();
-
-            while (result.next()) {
-                String item = result.getString("price");
-                roomPrice.add("RM " + item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return roomPrice;
-    }
-    */
-
-    /**
-     * Through the roomID, get the person id and its room type
-     * @param roomID - Room ID
-     * @return The person lived in this room
-     */
-    public static String getRoomLivedByWho(String roomID){
-        String output = "";
-        int count = 0;
-
-        if(!findRoomID(roomID)){
-            showError("Error","The room doesn't exist");
-        }else{
-            try{
-                String sql ="SELECT person.id, roomtype.type FROM person " +
-                        "LEFT JOIN room ON person.room_number = room.id " +
-                        "LEFT JOIN roomtype ON room.typeid = roomtype.id " +
-                        "WHERE person.room_number=? ";
-                preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setString(1, roomID);
-                result = preparedStatement.executeQuery();
-                while (result.next()) {
-                    String personID = result.getString("id");
-                    String roomType = result.getString("type");
-                    output += "|"+personID + "|  ";
-                    count++;
-                }
-                if (count == 0) {
-                    output = "No person lives in the room";
-                }
-            }catch(SQLException e){
-                output = "Failed to find the person in the room";
-            }
-        }
-        return output;
-    }
-
-    /**
-     * Through person id, get the room lived
-     * @param personID - Person ID
-     * @return Either this person live hostel or not
-     */
-    public static String getPersonRoom(String personID) {
-        String output = "";
-
-        if(!findID(personID)){
-            showError("Error","This person doesn't exist");
-        }else {
-            try {
-                String sql = "SELECT room_number FROM person WHERE id=?";
-                preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setString(1, personID);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    output = resultSet.getString("room_number");
-                    if (output == null) {
-                        output = "This person doesn't live in hostel";
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return output;
-    }
 
     /**
      * Through the room number, get the person who lived inside

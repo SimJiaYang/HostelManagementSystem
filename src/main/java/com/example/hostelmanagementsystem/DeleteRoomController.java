@@ -24,7 +24,9 @@ public class DeleteRoomController {
     public void initialize() {
         hostel.getItems().addAll("Old Hostel", "New Hostel", "All Hostels");
         room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
-                + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+                + dbManagement.oldHostel.toString()  +
+                "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                + dbManagement.newHostel.toString());
     }
 
     public void displayRoom(){
@@ -37,7 +39,7 @@ public class DeleteRoomController {
         } else if (hostel.getValue().equals("All Hostels")){
             room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
                     + dbManagement.oldHostel.toString()  +
-                    "\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
                     + dbManagement.newHostel.toString());
         }
     }

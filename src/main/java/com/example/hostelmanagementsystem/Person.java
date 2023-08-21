@@ -8,7 +8,7 @@ public class Person {
     private String phoneNumber;
     private String emergencyContact;
     private boolean isLiveHostel;
-    private Room room;
+    private String roomNumber;
 
     /**
      * Empty constructor for person
@@ -36,7 +36,7 @@ public class Person {
         this.id = id;
         // Set the default person no live hostel
         isLiveHostel = false;
-        this.room = null;
+        this.roomNumber = null;
     }
 
     /**
@@ -53,20 +53,16 @@ public class Person {
      * @return room number
      */
     public String getRoom() {
-        return isLiveHostel? room.getRoomNumber() : "Not available";
+        return isLiveHostel? roomNumber : "Not available";
     }
 
     /**
      * Set the room number of the person lived
      * @param roomNumber - Set room number
      */
-    public void setRoom(String roomNumber,String roomType) {
+    public void setRoom(String roomNumber) {
         isLiveHostel = true;
-        if(roomType.equals("Triple Room")){
-            room = new TripleRoom(roomNumber);
-        }else if(roomType.equals("Single Room")){
-            room = new SingleRoom(roomNumber);
-        }
+        this.roomNumber = roomNumber;
     }
 
     /**
@@ -74,7 +70,7 @@ public class Person {
      */
     public void removeRoomNumber() {
         isLiveHostel = false;
-        room = null;
+        roomNumber = null;
     }
 
     /**
@@ -161,10 +157,11 @@ public class Person {
      */
     @Override
     public String toString() {
-        return "\nName: " + name +
-                "\nAddress='" + address +
-                "\nGender='" + gender +
-                "\nPhone Number='" + phoneNumber +
-                "\nEmergency Contact='" + emergencyContact;
+        return "\n\nName: " + name +
+                "\nAddress: " + address +
+                "\nGender: " + gender +
+                "\nPhone Number: " + phoneNumber +
+                "\nEmergency Contact: " + emergencyContact +
+                "\nRoom Number: " + roomNumber;
     }
 }

@@ -30,21 +30,22 @@ public class DeleteRoomController {
     public void displayRoom(){
         if(hostel.getValue().equals("Old Hostel")){
             room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
-                    + dbManagement.showHostel(1));
+                    + dbManagement.oldHostel.toString());
         } else if (hostel.getValue().equals("New Hostel")){
             room.setText("------------------------------------------New Hostel Room-----------------------------------------\n"
-                    + dbManagement.showHostel(2));
+                    + dbManagement.newHostel.toString());
         } else if (hostel.getValue().equals("All Hostels")){
             room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
-                    + dbManagement.showHostel(1)
-                    + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
-                    + dbManagement.showHostel(2));
+                    + dbManagement.oldHostel.toString()  +
+                    "\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.newHostel.toString());
         }
     }
 
     public void deleteRoom(ActionEvent event) throws Exception{
         String enteredRoomID = "";
         enteredRoomID = roomNumber.getText().toUpperCase(Locale.ROOT);
+        String result = "";
 
         //Check Delete Room
         wrongDelete.setTextFill(Color.RED);
@@ -52,10 +53,36 @@ public class DeleteRoomController {
             wrongDelete.setText("Please enter room number!");
         }
         else {
-            String result = dbManagement.deleteRoom(enteredRoomID);
+            boolean isSuccess = false;
+            for(int i = 0; i < dbManagement.personList.size(); i++) {
+                if(dbManagement.personList.get(i).getRoom()==null){
+                    // Continue cannot delete
+                    continue;
+                }
+                else if(dbManagement.personList.get(i).getRoom().equals(enteredRoomID)){
+                    isSuccess = true;
+                    result = "This room has been lived by " +
+                            dbManagement.personList.get(i).getName();
+                    break;
+                }
+            }
+            if(!isSuccess) {
+                if (dbManagement.newHostel.removeSingleRoom(enteredRoomID) ||
+                        dbManagement.newHostel.removeTripleRoom(enteredRoomID) ||
+                        dbManagement.oldHostel.removeSingleRoom(enteredRoomID) ||
+                        dbManagement.oldHostel.removeTripleRoom(enteredRoomID)) {
+                    result = dbManagement.deleteRoom(enteredRoomID);
+                } else {
+                    result = "Some error occur";
+                }
+            }
+
             wrongDelete.setText(result);
             wrongDelete.setTextFill(Color.GREEN);
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.oldHostel.toString()  +
+                    "\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.newHostel.toString());
         }
     }
 

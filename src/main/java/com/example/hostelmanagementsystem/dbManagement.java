@@ -13,6 +13,7 @@ public class dbManagement {
 
     public static Hostel oldHostel;
     public static Hostel newHostel;
+    public static ArrayList<Person> personList;
 
     /**
      * Initialized for database connection
@@ -67,6 +68,32 @@ public class dbManagement {
                 NewHostelSingleRoom,
                 NewHostelTripleRoom
         );
+        personList = getPersonList();
+    }
+
+    public static ArrayList<Person> getPersonList(){
+        ArrayList<Person> persons = new ArrayList<Person>();
+        try{
+            String sql ="SELECT * FROM person";
+            preparedStatement = con.prepareStatement(sql);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String id = result.getString("id");
+                String email = result.getString("email");
+                String gender = result.getString("gender");
+                String name = result.getString("name");
+                String address = result.getString("address");
+                String phone = result.getString("phoneNumber");
+                String emergency = result.getString("emergencyContact");
+                String roomNumber = result.getString("room_number");
+                Person person = new Person(id,name, gender,address, phone,emergency);
+                person.setRoom(roomNumber);
+                persons.add(person);
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return persons;
     }
 
     public static int getCapacitySingle(int hostelID){
@@ -154,6 +181,7 @@ public class dbManagement {
         }
         return output;
     }
+
 
     /**
      * Show the hostel room only available, which status equal to one

@@ -220,22 +220,22 @@ public class dbManagement {
             showError("Error","The room already exist");
         }
         else{
-            try {
-                String insertSQL = "INSERT INTO room (id, typeid, status) VALUES (?, ?, ?)";
-                preparedStatement = con.prepareStatement(insertSQL);
-                preparedStatement.setString(1, roomID);
-                preparedStatement.setInt(2, roomTypeID);
-                preparedStatement.setInt(3, 1);
+                try {
+                    String insertSQL = "INSERT INTO room (id, typeid, status) VALUES (?, ?, ?)";
+                    preparedStatement = con.prepareStatement(insertSQL);
+                    preparedStatement.setString(1, roomID);
+                    preparedStatement.setInt(2, roomTypeID);
+                    preparedStatement.setInt(3, 1);
 
-                int rows = preparedStatement.executeUpdate();
-                if (rows > 0) {
-                    output = "Room added successfully";
-                } else {
-                    output = "Failed to add room";
+                    int rows = preparedStatement.executeUpdate();
+                    if (rows > 0) {
+                        output = "Room added successfully";
+                    } else {
+                        output = "Failed to add room";
+                    }
+                } catch (SQLException e) {
+                    output = "Failed to add room, \nPlease try again";
                 }
-            } catch (SQLException e) {
-                output = "Failed to add room, \nPlease try again";
-            }
         }
         return output;
     }

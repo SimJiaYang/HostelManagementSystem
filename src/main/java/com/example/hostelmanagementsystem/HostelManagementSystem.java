@@ -28,8 +28,7 @@ public class HostelManagementSystem extends Application {
     }
 
     public static void main(String[] args) {
-        dbConnect dbConnect = new dbConnect();
-        System.out.println(dbConnect.initializeDB());
+        dbManagement dbConnect = new dbManagement();
         launch();
     }
 }

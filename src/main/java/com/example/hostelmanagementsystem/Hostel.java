@@ -17,6 +17,7 @@ public abstract class Hostel{
     }
 
     /**
+     * Parameterized the constructor of the hostel
      * @param hostelID - Hostel ID
      * @param capacitySingleRoom - Capacity of Single room
      * @param capacityTripleRoom - Capacity of Triple Room
@@ -24,6 +25,7 @@ public abstract class Hostel{
      * @param tripleRoom - ArrayList triple room
      */
     protected Hostel(String hostelID,int capacitySingleRoom,int capacityTripleRoom,ArrayList<Room> singleRoom,ArrayList<Room> tripleRoom) {
+        this.hostelID = hostelID;
         this.capacitySingleRoom = capacitySingleRoom;
         this.capacityTripleRoom = capacityTripleRoom;
         this.singleRoom = singleRoom;
@@ -31,6 +33,7 @@ public abstract class Hostel{
     }
 
     /**
+     * Get the hostel ID
      * @return Hostel ID
      */
     public String getHostelID() {
@@ -38,6 +41,7 @@ public abstract class Hostel{
     }
 
     /**
+     * Get the capacity of the single room of the hostel
      * @return Capacity of Single room
      */
     public int getCapacitySingleRoom(){
@@ -45,6 +49,7 @@ public abstract class Hostel{
     };
 
     /**
+     * Get the capacity of the triple room of the hostel
      * @return Capacity of Triple room
      */
     public int getCapacityTripleRoom(){
@@ -52,10 +57,16 @@ public abstract class Hostel{
     };
 
     /**
+     * Add a new single room to the hostel
      * @param room - Single Room object add to Hostel
      * @return Add successful or not
      */
     public boolean addSingleRoom(Room room) {
+        for(int i = 0; i < singleRoom.size(); i++) {
+            if(singleRoom.get(i).getRoomNumber().equals(room.getRoomNumber())){
+                return false;
+            }
+        }
         // If single room size is smaller than total capacity, add it
         if(singleRoom.size() <  capacitySingleRoom){
             singleRoom.add(room);
@@ -65,10 +76,16 @@ public abstract class Hostel{
     }
 
     /**
+     * Add a new triple room to the hostel
      * @param room - Triple Room object add to Hostel
      * @return Add successful or not
      */
     public boolean addTripleRoom(Room room) {
+        for(int i = 0; i < tripleRoom.size(); i++) {
+            if(tripleRoom.get(i).getRoomNumber().equals(room.getRoomNumber())){
+                return false;
+            }
+        }
         if(tripleRoom.size() <  capacityTripleRoom){
             tripleRoom.add(room);
             return true;
@@ -77,66 +94,65 @@ public abstract class Hostel{
     }
 
     /**
-     * @param room - Single Room object remove from Hostel
+     * Remove a single room from the hostel
+     * @param roomID - Single Room object remove from Hostel
      * @return Remove successful or not
      */
-    public boolean removeSingleRoom(Room room) {
-        if(singleRoom.contains(room)){
-            singleRoom.remove(room);
-            return true;
+    public boolean removeSingleRoom(String roomID) {
+        for(int i = 0; i < singleRoom.size(); i++) {
+            if(singleRoom.get(i).getRoomNumber().equals(roomID)){
+                singleRoom.remove(singleRoom.get(i));
+                return true;
+            }
         }
         return false;
     }
 
     /**
-     * @param room -  - Triple Room object add to Hostel
+     * Remove a triple room from the hostel
+     * @param roomID - Triple Room object add to Hostel
      * @return Remove successful or not
      */
-    public boolean removeTripleRoom(Room room) {
-        if(tripleRoom.contains(room)){
-            tripleRoom.remove(room);
-            return true;
+    public boolean removeTripleRoom(String roomID) {
+        for(int i = 0; i < tripleRoom.size(); i++) {
+            if(tripleRoom.get(i).getRoomNumber().equals(roomID)){
+                tripleRoom.remove(tripleRoom.get(i));
+                return true;
+            }
         }
         return false;
     }
 
     /**
+     * Show all the single room in the hostel
      * @return All single room list
      */
-    public ArrayList<SingleRoom> getSingleRoom() {
-        ArrayList<Room> room = this.singleRoom;
-        ArrayList<SingleRoom> singleRooms = new ArrayList<SingleRoom>();
-        for(int i = 0; i < room.size(); i++) {
-            if(room.get(i) instanceof SingleRoom){
-                singleRooms.add((SingleRoom)room.get(i));
-            }
+    public String getSingleRoom() {
+        String output = "";
+        for(int i = 0; i < singleRoom.size(); i++) {
+                output += "|"+ singleRoom.get(i).getRoomNumber() + "|  ";
         }
-        return singleRooms;
+        return output;
     }
 
     /**
+     * Show all the triple room in the hostel
      * @return All triple room list
      */
-    public ArrayList<TripleRoom> getTripleRoom() {
-        ArrayList<Room> room = this.tripleRoom;
-        ArrayList<TripleRoom> tripleRooms = new ArrayList<TripleRoom>();
-        for(int i = 0; i < room.size(); i++) {
-            if(room.get(i) instanceof TripleRoom){
-                tripleRooms.add((TripleRoom)room.get(i));
-            }
+    public String getTripleRoom() {
+        String output = "";
+        for(int i = 0; i < tripleRoom.size(); i++) {
+            output += "|"+ tripleRoom.get(i).getRoomNumber() + "|  ";
         }
-        return tripleRooms;
+        return output;
     }
 
     /**
+     * Show the information about the hostel
      * @return Hostel information
      */
     @Override
     public String toString() {
-        return  "\nSingle Room: " + singleRoom.toString() +
-                "\nTriple Room: " + tripleRoom.toString() +
-                "\nSingle Room Capacity: " + capacitySingleRoom +
-                "\nTriple Room Capacity: " + capacityTripleRoom
-                ;
+        return getSingleRoom() + getTripleRoom();
     }
 }

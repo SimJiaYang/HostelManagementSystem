@@ -2,25 +2,24 @@ package com.example.hostelmanagementsystem;
 
 public abstract class Room{
     private String roomNumber;
-    private double roomPrice;
 
     /**
      * Empty constructor for creating room
      */
     protected Room(){
-        this("unknown",0);
+        this("-");
     }
 
     /**
+     * Parameterize the constructor of the room
      * @param roomNumber - Room number
-     * @param roomPrice - Room price
      */
-    protected Room(String roomNumber,double roomPrice){
+    protected Room(String roomNumber){
         this.roomNumber = roomNumber;
-        this.roomPrice = roomPrice;
     }
 
     /**
+     * Get the number of the room
      * @return Room number
      */
     public String getRoomNumber() {
@@ -28,37 +27,11 @@ public abstract class Room{
     }
 
     /**
-     * @return Room price
-     */
-    public double getRoomPrice() {
-        return roomPrice;
-    }
-
-    /**
-     * @param roomPrice - Set room price
-     */
-    public void setRoomPrice(double roomPrice){
-        this.roomPrice = roomPrice;
-    };
-
-    /**
-     * @param id - Person ID for adding to room
-     * @return Add successful or not
-     */
-    public abstract boolean addPerson(String id);
-
-    /**
-     * @param id - Person ID to remove from room
-     * @return Remove successful or not
-     */
-    public abstract boolean removePerson(String id);
-
-    /**
+     * Show the information about the room
      * @return Room basic information
      */
     public String toString() {
-        String room = getRoomNumber();
-        return room;
+        return roomNumber;
     }
 
 }

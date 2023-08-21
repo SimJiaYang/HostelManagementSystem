@@ -11,31 +11,31 @@ public class Lecturer extends Person implements Price {
      * Empty Constructor for Lecturer
      */
     protected Lecturer() {
-        this("unknown","unknown", "unknown","unknown","unknown",
-                "unknown", "unknown", "unknown", 0);
+        this("-","-", "-","-","-",
+                "-", "-", 0);
     }
 
-
     /**
+     * Parameterized Lecturer constructor
      * @param id - Lecturer ID
      * @param name - Lecturer name
      * @param gender  - Lecturer gender
      * @param address  - Lecturer address
      * @param phoneNumber  - Lecturer phone
      * @param emergencyContact  - Lecturer contact
-     * @param roomNumber  - Lecturer room number
      * @param lecturerEmail  - lecturer email
      * @param positionNumber  - lecturer position
      */
     protected Lecturer(
-            String id,String name, String gender, String address, String phoneNumber, String emergencyContact,String roomNumber,
-            String lecturerEmail, int positionNumber) {
-        super(id,name, gender, address, phoneNumber, emergencyContact,roomNumber);
+            String id,String name, String gender, String address, String phoneNumber, String emergencyContact
+            ,String lecturerEmail, int positionNumber) {
+        super(id,name, gender, address, phoneNumber, emergencyContact);
         this.lecturerEmail = lecturerEmail;
         this.position = validatePosition(positionNumber);
     }
 
     /**
+     * Set the email of the lecturer
      * @param lecturerEmail - Set Lecturer Email
      */
     public void setLecturerEmail(String lecturerEmail) {
@@ -44,6 +44,7 @@ public class Lecturer extends Person implements Price {
 
 
     /**
+     * Get the email of the lecturer
      * @return Lecturer email
      */
     public String getLecturerEmail() {
@@ -51,6 +52,7 @@ public class Lecturer extends Person implements Price {
     }
 
     /**
+     * Get the position of the lecturer
      * @return Lecturer position
      */
     public String getPosition() {
@@ -59,6 +61,7 @@ public class Lecturer extends Person implements Price {
 
 
     /**
+     * Get the position name of the lecturer
      * @param position - Get lecturer position number
      * @return Lecturer position
      */
@@ -75,6 +78,7 @@ public class Lecturer extends Person implements Price {
     }
 
     /**
+     * Get the hostel price of the lecturer
      * @param duration - Duration for semester
      * @param room - Room object in order to get room price
      * @return Room price after discount
@@ -82,7 +86,7 @@ public class Lecturer extends Person implements Price {
     @Override
     public double getTotalPrice(int duration, Room room) {
         boolean isLive = super.isLiveHostel();
-        double getRoomPrice = room.getRoomPrice();
+        double getRoomPrice = 0;
         getRoomPrice = duration == 14 ? getRoomPrice * 2 : getRoomPrice;
         // ROOM per price is shot sem price
         if (isLive) {
@@ -100,14 +104,14 @@ public class Lecturer extends Person implements Price {
     }
 
     /**
+     * Show the information of the lecturer
      * @return Lecturer basic information
      */
     @Override
     public String toString() {
-        return super.toString() +
-                "\nLecturer{" +
-                ", lecturerEmail='" + lecturerEmail + '\'' +
-                '}';
-
+        return "Lecturer"
+                + super.toString()
+                + "Lecturer Email: " + lecturerEmail
+                + "Position: " + position;
     }
 }

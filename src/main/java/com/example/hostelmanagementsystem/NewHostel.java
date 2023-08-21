@@ -12,6 +12,7 @@ public class NewHostel extends Hostel{
     }
 
     /**
+     * Parameterized the constructor of the new hostel
      * @param hostelID - New Hostel ID
      * @param capacitySingleRoom - Capacity of single room
      * @param capacityTripleRoom - Capacity of triple room
@@ -23,11 +24,11 @@ public class NewHostel extends Hostel{
     }
 
     /**
+     * Show the information of the new hostel
      * @return New hostel basic information
      */
     @Override
     public String toString() {
-        return "\nNew Hostel" +
-                super.toString();
+        return super.toString();
     }
 }

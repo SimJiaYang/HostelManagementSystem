@@ -1,23 +1,30 @@
 package com.example.hostelmanagementsystem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 
-public class dbConnect {
+public class dbManagement {
     static PreparedStatement preparedStatement;
     static Statement statement;
     static ResultSet result;
     static Connection con;
 
-    /**
-     * Empty constructor for database connection
-     */
-    public dbConnect(){
+    public static Hostel oldHostel;
+    public static Hostel newHostel;
 
+    /**
+     * Initialized for database connection
+     */
+    public dbManagement(){
+        System.out.println(initializeDB());
+        initializedInformation();
     }
 
     /**
+     * Initialized the database connection, it will show
+     * the information about the connection status
      * @return The connection status to database
      */
     public String initializeDB(){
@@ -37,7 +44,97 @@ public class dbConnect {
         return output;
     }
 
+    public static void initializedInformation(){
+        ArrayList<Room> OldHostelSingleRoom = getRoomList(1,"single");
+        ArrayList<Room> OldHostelTripleRoom =  getRoomList(1,"triple");
+        ArrayList<Room> NewHostelSingleRoom = getRoomList(2,"single");
+        ArrayList<Room> NewHostelTripleRoom = getRoomList(2,"triple");
+        int OldHostelCapacitySingleRoom = getCapacitySingle(1);
+        int OldHostelCapacityTripleRoom = getCapacityTriple(1);
+        int NewHostelCapacitySingleRoom  = getCapacitySingle(2);
+        int NewHostelCapacityTripleRoom  = getCapacityTriple(2);
+        oldHostel = new OldHostel(
+                "1",
+                OldHostelCapacitySingleRoom,
+                OldHostelCapacityTripleRoom,
+                OldHostelSingleRoom,
+                OldHostelTripleRoom
+        );
+        newHostel = new NewHostel(
+                "2",
+                NewHostelCapacitySingleRoom,
+                NewHostelCapacityTripleRoom,
+                NewHostelSingleRoom,
+                NewHostelTripleRoom
+        );
+    }
+
+    public static int getCapacitySingle(int hostelID){
+        int capacity = 0;
+        try{
+            String sql ="SELECT hostel.capacitySingle FROM hostel " +
+                    "WHERE hostel.id = ? ";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, hostelID);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                capacity = result.getInt("capacitySingle");
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+//        System.out.println("Single: " + capacity);
+        return capacity;
+    }
+
+    public static int getCapacityTriple(int hostelID){
+        int capacity = 0;
+        try{
+            String sql ="SELECT hostel.capacityTriple FROM hostel " +
+                    "WHERE hostel.id = ? ";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, hostelID);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                capacity = result.getInt("capacityTriple");
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+//        System.out.println("Triple: " + capacity);
+        return capacity;
+    }
+
+    public static ArrayList<Room> getRoomList(int hostelID, String roomType){
+        ArrayList<Room> roomList = new ArrayList<>();
+        try{
+            String sql ="SELECT room.id FROM room " +
+                    "LEFT JOIN roomtype ON room.typeid = roomtype.id " +
+                    "WHERE roomtype.hostelID = ? " +
+                    "AND roomtype.type = ?";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, hostelID);
+            preparedStatement.setString(2, roomType);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String roomID = result.getString("id");
+                if (roomType.equals("single")) {
+                    roomList.add(new SingleRoom(roomID));
+                }else{
+                    roomList.add(new TripleRoom(roomID));
+                }
+
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+//        System.out.println(roomList);
+        return roomList;
+    }
+
+
     /**
+     * Show the room id for the hostel (*new hostel or old hostel)
      * @param hostelID - Hostel ID
      * @return Available room for the hostel
      */
@@ -47,7 +144,6 @@ public class dbConnect {
                 String sql ="SELECT room.id FROM room LEFT JOIN roomtype ON room.typeid = roomtype.id WHERE roomtype.hostelID = ?";
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setInt(1, hostelID);
-
                 result = preparedStatement.executeQuery();
             while (result.next()) {
                 String roomID = result.getString("id");
@@ -60,6 +156,7 @@ public class dbConnect {
     }
 
     /**
+     * Show the hostel room only available, which status equal to one
      * @param hostelID - Hostel ID
      * @return Available hostel room
      */
@@ -82,6 +179,7 @@ public class dbConnect {
     }
 
     /**
+     * Add the room to the hostel
      * @param roomTypeID - The type of the room
      * @param roomID - The ID of the room
      * @return The status for adding the room
@@ -114,6 +212,7 @@ public class dbConnect {
     }
 
     /**
+     * Delete a room from the database
      * @param roomID - The ID of the room
      * @return The status of delete the room
      */
@@ -148,6 +247,7 @@ public class dbConnect {
     }
 
     /**
+     * Assign the room number to the person
      * @param roomID - Room ID
      * @param personID - Person ID
      * @return The status for adding the person to the room
@@ -187,6 +287,7 @@ public class dbConnect {
     }
 
     /**
+     * Dalete the person from the room
      * @param personID - Person ID
      * @return The status delete the person from the room
      */
@@ -222,6 +323,7 @@ public class dbConnect {
     }
 
     /**
+     * Update the room price according the room type
      * @param price - Room price
      * @param roomTypeID - Room type ID
      * @return The status to update the room price
@@ -265,6 +367,7 @@ public class dbConnect {
     */
 
     /**
+     * Through the roomID, get the person id and its room type
      * @param roomID - Room ID
      * @return The person lived in this room
      */
@@ -300,6 +403,7 @@ public class dbConnect {
     }
 
     /**
+     * Through person id, get the room lived
      * @param personID - Person ID
      * @return Either this person live hostel or not
      */
@@ -328,6 +432,7 @@ public class dbConnect {
     }
 
     /**
+     * Through the room number, get the person who lived inside
      * @param roomID - Room ID
      * @return The person who live in this room
      */
@@ -352,6 +457,7 @@ public class dbConnect {
     }
 
     /**
+     * Through Person ID, get the room number lived
      * @param personID - Person ID
      * @return The room number for the person lived
      */
@@ -372,6 +478,8 @@ public class dbConnect {
     }
 
     /**
+     * Through the Person ID, ensure the person has live hostel or not,
+     * 0 = no, 1 = yes
      * @param id - Person ID
      * @return Either this person live in hostel or not
      */
@@ -394,6 +502,7 @@ public class dbConnect {
     }
 
     /**
+     * Find the person id exist or not
      * @param id - Person ID
      * @return Either exist this person or not
      */
@@ -412,6 +521,7 @@ public class dbConnect {
     }
 
     /**
+     * Find the room id exist or not
      * @param id - Room ID
      * @return Either exist this room or not
      */
@@ -430,6 +540,7 @@ public class dbConnect {
     }
 
     /**
+     * Get the room type through the room id
      * @param roomID
      * @return The type of the room
      */
@@ -453,6 +564,7 @@ public class dbConnect {
     }
 
     /**
+     * Get the room capacity through the room ID
      * @param roomID - Room ID
      * @return The capacity of the room
      */
@@ -470,6 +582,7 @@ public class dbConnect {
     }
 
     /**
+     * Check the room availability through room ID
      * @param roomID - Room ID
      * @return The availability of the room
      */
@@ -480,6 +593,7 @@ public class dbConnect {
     }
 
     /**
+     * Set the status of the room through room ID
      * @param roomID - Room ID
      */
     public static void setRoomStatus(String roomID) {
@@ -504,6 +618,7 @@ public class dbConnect {
     }
 
     /**
+     * Check the room availability through the room ID
      * @param roomID - Room ID
      * @return True if room is available
      */
@@ -526,6 +641,7 @@ public class dbConnect {
     }
 
     /**
+     * Show the error message
      * @param title - Error message title
      * @param msg - Error message content
      */
@@ -538,6 +654,7 @@ public class dbConnect {
     }
 
     /**
+     * Show the information
      * @param title - Information title
      * @param msg - Information content
      */

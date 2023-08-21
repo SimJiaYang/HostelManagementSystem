@@ -26,7 +26,7 @@ public class ViewPersonRoomController {
         if (personID.getText().toString().equals("")){
             wrongView.setText("Please enter student/ lecturer id!");
         } else {
-            String result = dbConnect.getPersonRoom(enteredPersonID);
+            String result = dbManagement.getPersonRoom(enteredPersonID);
             roomNumber.setText(result);
             wrongView.setTextFill(Color.GREEN);
         }

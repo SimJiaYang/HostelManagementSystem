@@ -8,7 +8,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-import java.io.IOException;
 import java.util.Locale;
 
 public class DeleteRoomController {
@@ -24,16 +23,22 @@ public class DeleteRoomController {
 
     public void initialize() {
         hostel.getItems().addAll("Old Hostel", "New Hostel", "All Hostels");
-        room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+        room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
     }
 
     public void displayRoom(){
         if(hostel.getValue().equals("Old Hostel")){
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.showHostel(1));
         } else if (hostel.getValue().equals("New Hostel")){
-            room.setText("------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+            room.setText("------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.showHostel(2));
         } else if (hostel.getValue().equals("All Hostels")){
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n"
+                    + dbManagement.showHostel(1)
+                    + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n"
+                    + dbManagement.showHostel(2));
         }
     }
 
@@ -47,10 +52,10 @@ public class DeleteRoomController {
             wrongDelete.setText("Please enter room number!");
         }
         else {
-            String result = dbConnect.deleteRoom(enteredRoomID);
+            String result = dbManagement.deleteRoom(enteredRoomID);
             wrongDelete.setText(result);
             wrongDelete.setTextFill(Color.GREEN);
-            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbConnect.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbConnect.showHostel(2));
+            room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" + dbManagement.showHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showHostel(2));
         }
     }
 

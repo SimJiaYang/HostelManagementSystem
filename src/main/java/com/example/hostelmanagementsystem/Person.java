@@ -8,25 +8,26 @@ public class Person {
     private String phoneNumber;
     private String emergencyContact;
     private boolean isLiveHostel;
-    private String roomNumber;
+    private Room room;
 
     /**
-     * Empty constrcutor for person
+     * Empty constructor for person
      */
     protected Person(){
-        this("","unknown","unknown","unknown","unknown","unknown","unknown");
+        this("-","-","-","-","-",
+                "-");
     }
 
     /**
+     * Parameterized constructor for person
      * @param id - ID of the person
      * @param name - Name of the person
      * @param gender - Gender of the person
      * @param address - Address of the person
      * @param phoneNumber - Phone number of the person
      * @param emergencyContact - Emergency contact
-     * @param roomNumber - Room number of the person
      */
-    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact,String roomNumber) {
+    protected Person(String id,String name, String gender,String address, String phoneNumber,String emergencyContact) {
         this.name = name;
         this.gender = gender;
         this.address = address;
@@ -35,11 +36,12 @@ public class Person {
         this.id = id;
         // Set the default person no live hostel
         isLiveHostel = false;
-        this.roomNumber = roomNumber;
+        this.room = null;
     }
 
     /**
-     * @return Get person ID
+     * Get Person ID
+     * @return person ID
      */
     public String getId() {
         return id;
@@ -47,50 +49,56 @@ public class Person {
 
 
     /**
-     * @return Room number
+     * Get Room Number
+     * @return room number
      */
-    public String getRoomNumber() {
-        if(roomNumber == null){
-            return "This person don't live hostel";
-        }
-        return roomNumber;
+    public String getRoom() {
+        return isLiveHostel? room.getRoomNumber() : "Not available";
     }
 
     /**
+     * Set the room number of the person lived
      * @param roomNumber - Set room number
      */
-    public void setRoomNumber(String roomNumber) {
+    public void setRoom(String roomNumber,String roomType) {
         isLiveHostel = true;
-        this.roomNumber = roomNumber;
+        if(roomType.equals("Triple Room")){
+            room = new TripleRoom(roomNumber);
+        }else if(roomType.equals("Single Room")){
+            room = new SingleRoom(roomNumber);
+        }
     }
 
-
     /**
-     *  Remove room number
+     *  Remove room number for person
      */
     public void removeRoomNumber() {
         isLiveHostel = false;
-        this.roomNumber = null;
+        room = null;
     }
 
     /**
-     * @return Get either this person is live hostel or not
+     * Get either this person is live hostel or not
+     * @return true or false
      */
     public boolean isLiveHostel() {
         return isLiveHostel;
     }
 
     /**
-     * @return Get name
+     * Get the name of the person
+     * @return name
      */
     public String getName() { return name; }
 
     /**
+     * Set the name of the person
      * @param name - Set name
      */
     public void setName(String name) { this.name = name; }
 
     /**
+     * Get the gender of the person
      * @return Get gender
      */
     public String getGender() {
@@ -98,6 +106,7 @@ public class Person {
     }
 
     /**
+     * Set the gender of the person
      * @param gender - Set gender
      */
     public void setGender(String gender) {
@@ -105,21 +114,25 @@ public class Person {
     }
 
     /**
+     * Get the address of the person
      * @return Get address
      */
     public String getAddress() { return address; }
 
     /**
+     * Set the address of the person
      * @param address - Set address
      */
     public void setAddress(String address) { this.address = address; }
 
     /**
+     * Get the phone number of the person
      * @return Person phone number
      */
     public String getPhoneNumber() { return phoneNumber;}
 
     /**
+     * Set the phone number of the person
      * @param phoneNumber - Set phone number
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -127,6 +140,7 @@ public class Person {
     }
 
     /**
+     * Get the emergency contact of the person
      * @return Person emergency number
      */
     public String getEmergencyContact() {
@@ -134,6 +148,7 @@ public class Person {
     }
 
     /**
+     * Set the emergency contact of the person
      * @param emergencyContact - Set person emergency number
      */
     public void setEmergencyContact(String emergencyContact) {
@@ -141,16 +156,15 @@ public class Person {
     }
 
     /**
+     * Return the person information
      * @return Print out person information
      */
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", gender='" + gender + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emergencyContact='" + emergencyContact + '\'' +
-                '}';
+        return "\nName: " + name +
+                "\nAddress='" + address +
+                "\nGender='" + gender +
+                "\nPhone Number='" + phoneNumber +
+                "\nEmergency Contact='" + emergencyContact;
     }
 }

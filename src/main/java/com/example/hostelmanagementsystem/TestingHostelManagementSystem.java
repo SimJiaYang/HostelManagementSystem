@@ -2,7 +2,7 @@ package com.example.hostelmanagementsystem;
 
 public class TestingHostelManagementSystem {
     public static void main(String[] args){
-        dbConnect dbConnect = new dbConnect();
+        dbManagement dbConnect = new dbManagement();
         System.out.println(dbConnect.initializeDB());
         System.out.println("\nOld Hostel");
         System.out.println( dbConnect.showHostel(1));

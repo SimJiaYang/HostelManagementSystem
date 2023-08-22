@@ -35,7 +35,7 @@ public class DeletePersonFromRoomController {
     }
 
     public void deletePersonFromRoom(ActionEvent event) throws Exception{
-        String id = personID.getText();
+        String id = personID.getText().toUpperCase();
 
         wrongDeletePersonFromRoom.setTextFill(Color.RED);
         if (personID.getText().equals("")){
@@ -45,9 +45,13 @@ public class DeletePersonFromRoomController {
             String result = dbManagement.deletePersonFromRoom(id);
             if(result.equals("The room has been removed from the person")){
                 for (int i = 0; i < dbManagement.personList.size(); i++) {
-                    if (dbManagement.personList.get(i).getId().equals(id)) {
+                    System.out.println("Has enter for loop");
+                    if ((dbManagement.personList.get(i).getId()).equals(id)) {
+                        System.out.println("Has enter if else");
                         dbManagement.personList.get(i).removeRoomNumber();
+                        break;
                     }
+
                 }
             }
             wrongDeletePersonFromRoom.setText(result);

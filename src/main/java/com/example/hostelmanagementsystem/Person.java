@@ -53,7 +53,7 @@ public class Person {
      * @return room number
      */
     public String getRoom() {
-        return isLiveHostel? roomNumber : "Not available";
+        return roomNumber;
     }
 
     /**
@@ -157,7 +157,8 @@ public class Person {
      */
     @Override
     public String toString() {
-        return "\n\nName: " + name +
+        return "\n\nID: " + id +
+                "\nName: " + name +
                 "\nAddress: " + address +
                 "\nGender: " + gender +
                 "\nPhone Number: " + phoneNumber +

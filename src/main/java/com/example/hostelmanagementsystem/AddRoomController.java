@@ -64,18 +64,18 @@ public class AddRoomController {
             if(oldHostel.isSelected()){
                 if(singleRoom.isSelected()) {
                     selectedRoomTypeID = 1;
-                    isSuccessful = dbManagement.oldHostel.addSingleRoom(new SingleRoom(roomNumber.getText()));
+                    isSuccessful = dbManagement.oldHostel.addSingleRoom(new SingleRoom(roomNumber.getText().toUpperCase()));
                 } else if (tripleRoom.isSelected()) {
                     selectedRoomTypeID = 3;
-                    isSuccessful = dbManagement.oldHostel.addTripleRoom(new TripleRoom(roomNumber.getText()));
+                    isSuccessful = dbManagement.oldHostel.addTripleRoom(new TripleRoom(roomNumber.getText().toUpperCase()));
                 }
             }else if(newHostel.isSelected()){
                 if(singleRoom.isSelected()) {
                     selectedRoomTypeID = 2;
-                    isSuccessful = dbManagement.newHostel.addSingleRoom(new SingleRoom(roomNumber.getText()));
+                    isSuccessful = dbManagement.newHostel.addSingleRoom(new SingleRoom(roomNumber.getText().toUpperCase()));
                 } else if (tripleRoom.isSelected()) {
                     selectedRoomTypeID = 4;
-                    isSuccessful = dbManagement.newHostel.addTripleRoom(new TripleRoom(roomNumber.getText()));
+                    isSuccessful = dbManagement.newHostel.addTripleRoom(new TripleRoom(roomNumber.getText().toUpperCase()));
                 }
             }
 

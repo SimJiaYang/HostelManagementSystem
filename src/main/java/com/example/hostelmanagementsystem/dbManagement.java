@@ -72,6 +72,7 @@ public class dbManagement {
                 NewHostelTripleRoom
         );
         personList = getPersonList();
+        System.out.println(personList);
 
     }
 

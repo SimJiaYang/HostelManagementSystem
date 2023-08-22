@@ -56,15 +56,11 @@ public class ViewPersonInRoomController {
         if (roomNumber.getText().toString().equals("")){
             wrongView.setText("Please enter room number!");
         } else {
-            boolean isSuccess = false;
             for(int i = 0; i < dbManagement.personList.size(); i++) {
-                if(dbManagement.personList.get(i).getRoom()==null){
+                if(dbManagement.personList.get(i).getRoom() == null){
                     result = "Failed to find person in the room";
-                    // Continue cannot delete
-                    continue;
                 }
-                else if(dbManagement.personList.get(i).getRoom().equals(enteredRoomID)){
-                    isSuccess = true;
+                else if((dbManagement.personList.get(i).getRoom()).equals(enteredRoomID)){
                     result = dbManagement.personList.get(i).getId();
                     break;
                 }else{

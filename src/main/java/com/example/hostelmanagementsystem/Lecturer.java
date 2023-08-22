@@ -80,13 +80,13 @@ public class Lecturer extends Person implements Price {
     /**
      * Get the hostel price of the lecturer
      * @param duration - Duration for semester
-     * @param room - Room object in order to get room price
      * @return Room price after discount
      */
     @Override
-    public double getTotalPrice(int duration, Room room) {
+    public double getTotalPrice(int duration) {
         boolean isLive = super.isLiveHostel();
-        double getRoomPrice = 0;
+        double getRoomPrice = dbManagement.getRoomPrice(super.getRoom());
+        System.out.println(getRoomPrice);
         getRoomPrice = duration == 14 ? getRoomPrice * 2 : getRoomPrice;
         // ROOM per price is shot sem price
         if (isLive) {

@@ -45,6 +45,9 @@ public class dbManagement {
         return output;
     }
 
+    /**
+     * Initialized the information
+     */
     public static void initializedInformation(){
         ArrayList<Room> OldHostelSingleRoom = getRoomList(1,"single");
         ArrayList<Room> OldHostelTripleRoom =  getRoomList(1,"triple");
@@ -69,8 +72,13 @@ public class dbManagement {
                 NewHostelTripleRoom
         );
         personList = getPersonList();
+
     }
 
+    /**
+     * Get the list of the person
+     * @return List of Person
+     */
     public static ArrayList<Person> getPersonList(){
         ArrayList<Person> persons = new ArrayList<Person>();
         try{
@@ -96,6 +104,10 @@ public class dbManagement {
         return persons;
     }
 
+    /**
+     * @param hostelID - ID of the hostel
+     * @return The capacity of the single room
+     */
     public static int getCapacitySingle(int hostelID){
         int capacity = 0;
         try{
@@ -114,6 +126,10 @@ public class dbManagement {
         return capacity;
     }
 
+    /**
+     * @param hostelID - ID of the hostel
+     * @return The capacity of the triple room
+     */
     public static int getCapacityTriple(int hostelID){
         int capacity = 0;
         try{
@@ -132,6 +148,11 @@ public class dbManagement {
         return capacity;
     }
 
+    /**
+     * @param hostelID - Hostel ID
+     * @param roomType - The type of the room ("single" or "triple")
+     * @return The list of the room (single or triple)
+     */
     public static ArrayList<Room> getRoomList(int hostelID, String roomType){
         ArrayList<Room> roomList = new ArrayList<>();
         try{
@@ -159,28 +180,28 @@ public class dbManagement {
         return roomList;
     }
 
-
     /**
-     * Show the room id for the hostel (*new hostel or old hostel)
-     * @param hostelID - Hostel ID
-     * @return Available room for the hostel
+     * @param roomID - Room ID
+     * @return The price of the room
      */
-    public static String showHostel(int hostelID){
-        String output = "";
+    public static double getRoomPrice(String roomID){
+        double price = 0;
         try{
-                String sql ="SELECT room.id FROM room LEFT JOIN roomtype ON room.typeid = roomtype.id WHERE roomtype.hostelID = ?";
-                preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setInt(1, hostelID);
-                result = preparedStatement.executeQuery();
+            String sql ="SELECT roomtype.price FROM roomtype " +
+                    "LEFT JOIN roomtype ON room.typeid = roomtype.id " +
+                    "WHERE room.id = ? ";
+            preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, roomID);
+            result = preparedStatement.executeQuery();
             while (result.next()) {
-                String roomID = result.getString("id");
-                output += "|"+ roomID + "|  ";
+                price = result.getDouble("price");
             }
         }catch(SQLException e){
-            output = "Fail to find the hostel";
+            System.out.println(e.toString());
         }
-        return output;
+        return price;
     }
+
 
 
     /**

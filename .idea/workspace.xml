@@ -9,10 +9,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5e49ecb9-10fc-4ea4-a2b4-c2f9d64bde73" name="Changes" comment="UI connected database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Price.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/dbManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/AddPersonToRoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/DeletePersonFromRoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/ViewPersonInRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/hostelmanagementsystem/ViewPersonInRoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Lecturer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Person.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/hostelmanagementsystem/Student.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

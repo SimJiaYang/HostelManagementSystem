@@ -38,7 +38,7 @@ public class DeletePersonFromRoomController {
         String id = personID.getText();
 
         wrongDeletePersonFromRoom.setTextFill(Color.RED);
-        if (personID.getText().toString().equals("")){
+        if (personID.getText().equals("")){
             wrongDeletePersonFromRoom.setText("Please enter student / lecturer id!");
         }
         else {

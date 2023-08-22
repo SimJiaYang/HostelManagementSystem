@@ -62,11 +62,12 @@ public class AddPersonToRoomController {
                         dbManagement.personList.get(i).setRoom(enteredRoomID);
                     }
                 }
+            }
                 wrongAddPersonToRoom.setText(result);
                 wrongAddPersonToRoom.setTextFill(Color.GREEN);
                 room.setText("-------------------------------------------Old Hostel Room-----------------------------------------\n" +
                         dbManagement.showAvailableHostel(1) + "\n\n------------------------------------------New Hostel Room-----------------------------------------\n" + dbManagement.showAvailableHostel(2));
-            }
+
         }
     }
 

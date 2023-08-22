@@ -59,6 +59,7 @@ public class ViewPersonInRoomController {
             boolean isSuccess = false;
             for(int i = 0; i < dbManagement.personList.size(); i++) {
                 if(dbManagement.personList.get(i).getRoom()==null){
+                    result = "Failed to find person in the room";
                     // Continue cannot delete
                     continue;
                 }
